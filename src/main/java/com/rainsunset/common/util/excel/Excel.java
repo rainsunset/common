@@ -33,6 +33,7 @@ public @interface Excel {
 
     /**
      * 表格内容排列样式
+     *
      * @return
      */
     short ALIGN_GENERAL = 0x0;

@@ -22,39 +22,32 @@ import java.util.*;
 
 /**
  * Excel导出
- * 
+ *
  * @author Goofy <a href="http://www.xdemo.org">http://www.xdemo.org</a>
- * 
  */
 public class ExcelUtils<E> {
     private E e;
-    private   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int etimes = 0;
- 
+
     public ExcelUtils(E e) {
         this.e = e;
     }
- 
+
     @SuppressWarnings("unchecked")
     public E get() throws InstantiationException, IllegalAccessException {
         return (E) e.getClass().newInstance();
     }
- 
+
     /**
      * 将数据写入到Excel文件
-     * 
-     * @param filePath
-     *            文件路径
-     * @param sheetName
-     *            工作表名称
-     * @param title
-     *            工作表标题栏
-     * @param data
-     *            工作表数据
-     * @throws FileNotFoundException
-     *             文件不存在异常
-     * @throws IOException
-     *             IO异常
+     *
+     * @param filePath  文件路径
+     * @param sheetName 工作表名称
+     * @param title     工作表标题栏
+     * @param data      工作表数据
+     * @throws FileNotFoundException 文件不存在异常
+     * @throws IOException           IO异常
      */
     public static void writeToFile(String filePath, String[] sheetName, List<? extends Object[]> title, List<? extends List<? extends Object[]>> data) throws FileNotFoundException, IOException {
         // 创建并获取工作簿对象
@@ -64,7 +57,7 @@ public class ExcelUtils<E> {
         wb.write(out);
         out.close();
     }
- 
+
     /**
      * 创建工作簿对象<br>
      * <font color="red">工作表名称，工作表标题，工作表数据最好能够对应起来</font><br>
@@ -73,21 +66,16 @@ public class ExcelUtils<E> {
      * 需要为每个工作表指定<font color="red">工作表名称，工作表标题，工作表数据</font><br>
      * 如果工作表的数目大于工作表数据的集合，那么首先会根据顺序一一创建对应的工作表名称和数据集合，然后创建的工作表里面是没有数据的<br>
      * 如果工作表的数目小于工作表数据的集合，那么多余的数据将不会写入工作表中 </b>
-     * 
-     * @param sheetName
-     *            工作表名称的数组
-     * @param title
-     *            每个工作表名称的数组集合
-     * @param data
-     *            每个工作表数据的集合的集合
+     *
+     * @param sheetName 工作表名称的数组
+     * @param title     每个工作表名称的数组集合
+     * @param data      每个工作表数据的集合的集合
      * @return Workbook工作簿
-     * @throws FileNotFoundException
-     *             文件不存在异常
-     * @throws IOException
-     *             IO异常
+     * @throws FileNotFoundException 文件不存在异常
+     * @throws IOException           IO异常
      */
     public static Workbook getWorkBook(String[] sheetName, List<? extends Object[]> title, List<? extends List<? extends Object[]>> data) throws FileNotFoundException, IOException {
- 
+
         // 创建工作簿
         Workbook wb = new SXSSFWorkbook();
         // 创建一个工作表sheet
@@ -108,23 +96,23 @@ public class ExcelUtils<E> {
         titleStyle.setAlignment(CellStyle.ALIGN_CENTER);
         // 垂直居中
         titleStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
- 
+
         // 水平居中
         cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
         // 垂直居中
         cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
- 
+
         cellStyle.setFillBackgroundColor(HSSFColor.BLUE.index);
- 
+
         // 标题数据
         Object[] title_temp = null;
- 
+
         // 行数据
         Object[] rowData = null;
- 
+
         // 工作表数据
         List<? extends Object[]> sheetData = null;
- 
+
         // 遍历sheet
         for (int sheetNumber = 0; sheetNumber < sheetName.length; sheetNumber++) {
             // 创建工作表
@@ -136,14 +124,14 @@ public class ExcelUtils<E> {
             // 设置标题
             title_temp = title.get(sheetNumber);
             row = sheet.createRow(0);
- 
+
             // 写入标题
             for (int i = 0; i < title_temp.length; i++) {
                 cell = row.createCell(i);
                 cell.setCellStyle(titleStyle);
                 cell.setCellValue(title_temp[i].toString());
             }
- 
+
             try {
                 sheetData = data.get(sheetNumber);
             } catch (Exception e) {
@@ -153,7 +141,7 @@ public class ExcelUtils<E> {
             for (int rowNumber = 0; rowNumber < sheetData.size(); rowNumber++) {
                 // 如果没有标题栏，起始行就是0，如果有标题栏，行号就应该为1
                 //row = sheet.createRow(title_temp == null ? rowNumber : (rowNumber + 1));
-                row = sheet.createRow(title_temp.length==0? rowNumber : (rowNumber + 1));
+                row = sheet.createRow(title_temp.length == 0 ? rowNumber : (rowNumber + 1));
                 rowData = sheetData.get(rowNumber);
                 for (int columnNumber = 0; columnNumber < rowData.length; columnNumber++) {
                     cell = row.createCell(columnNumber);
@@ -164,17 +152,14 @@ public class ExcelUtils<E> {
         }
         return wb;
     }
- 
+
     /**
      * 将数据写入到EXCEL文档
-     * 
-     * @param list
-     *            数据集合
-     * @param edf
-     *            数据格式化，比如有些数字代表的状态，像是0:女，1：男，或者0：正常，1：锁定，变成可读的文字
-     *            该字段仅仅针对Boolean,Integer两种类型作处理
-     * @param filePath
-     *            文件路径
+     *
+     * @param list     数据集合
+     * @param edf      数据格式化，比如有些数字代表的状态，像是0:女，1：男，或者0：正常，1：锁定，变成可读的文字
+     *                 该字段仅仅针对Boolean,Integer两种类型作处理
+     * @param filePath 文件路径
      * @throws Exception
      */
     public static <T> void writeToFile(List<T> list, ExcelDataFormatter edf, String filePath) throws Exception {
@@ -185,50 +170,46 @@ public class ExcelUtils<E> {
         wb.write(out);
         out.close();
     }
-    
+
     public static <T> void writeToFileResponse(List<T> list, ExcelDataFormatter edf, HttpServletResponse response) throws Exception {
         // 创建并获取工作簿对象
         Workbook wb = getWorkBook(list, edf);
         wb.write(response.getOutputStream());
         // 写入到文件
-       // FileOutputStream out = new FileOutputStream(filePath);
-       // wb.write(out);
-       // out.close();
+        // FileOutputStream out = new FileOutputStream(filePath);
+        // wb.write(out);
+        // out.close();
     }
-    
+
     /**
      * 将数据写入到EXCEL文档
-     * 
-     * @param list
-     *            数据集合
-     * @param edf
-     *            数据格式化，比如有些数字代表的状态，像是0:女，1：男，或者0：正常，1：锁定，变成可读的文字
-     *            该字段仅仅针对Boolean,Integer两种类型作处理
-     * @param response
      *
+     * @param list     数据集合
+     * @param edf      数据格式化，比如有些数字代表的状态，像是0:女，1：男，或者0：正常，1：锁定，变成可读的文字
+     *                 该字段仅仅针对Boolean,Integer两种类型作处理
+     * @param response
      * @throws Exception
      */
-    public static <T> byte[]  writeToResponse(List<T> list, ExcelDataFormatter edf, HttpServletResponse response) throws Exception {
+    public static <T> byte[] writeToResponse(List<T> list, ExcelDataFormatter edf, HttpServletResponse response) throws Exception {
         // 创建并获取工作簿对象
         Workbook wb = getWorkBook(list, edf);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         wb.write(output);
-        byte[] b = output.toByteArray();  
-        return b; 
+        byte[] b = output.toByteArray();
+        return b;
     }
- 
+
     /**
      * 获得Workbook对象
-     * 
-     * @param list
-     *            数据集合
+     *
+     * @param list 数据集合
      * @return Workbook
      * @throws Exception
      */
     public static <T> Workbook getWorkBook(List<T> list, ExcelDataFormatter edf) throws Exception {
         // 创建工作簿
         Workbook wb = new XSSFWorkbook();
- 
+
         if (list == null || list.size() == 0) {
             return wb;
         }
@@ -238,17 +219,17 @@ public class ExcelUtils<E> {
         Row row = sheet.createRow(0);
         // 申明单元格
         Cell cell = null;
- 
+
         CreationHelper createHelper = wb.getCreationHelper();
- 
+
         Field[] fields = ReflectUtils.getClassFieldsAndSuperClassFields(list.get(0).getClass());
- 
+
         XSSFCellStyle titleStyle = (XSSFCellStyle) wb.createCellStyle();
         titleStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
         // 设置前景色
         titleStyle.setFillForegroundColor(new XSSFColor(new java.awt.Color(159, 213, 183)));
         titleStyle.setAlignment(CellStyle.ALIGN_CENTER);
- 
+
         Font font = wb.createFont();
         font.setColor(HSSFColor.BROWN.index);
         font.setBoldweight(Font.BOLDWEIGHT_BOLD);
@@ -269,54 +250,54 @@ public class ExcelUtils<E> {
             cell = row.createCell(columnIndex);
             cell.setCellStyle(titleStyle);
             cell.setCellValue(excel.name());
-            
-            if (edf != null) { 
+
+            if (edf != null) {
                 Map<String, String> map = edf.get(field.getName());
                 if (map != null) {
-                	String[] strs = new String[map.size()+1];
-                	  int vi = 0;
-                	  strs[vi]="";
-                	  Set <Map.Entry<String, String>> set=map.entrySet();
-                	  //2、foreach遍历键值对对象的集合，得到每一个键值对对象
-                	  for(Map.Entry<String, String> me:set){
-                		  vi++;
-                	   //3、根据键值对对象获得键和值
-                		  strs[vi]=me.getValue();
-                	  }
-                	
-                	CellRangeAddressList addressList = new CellRangeAddressList(1, list.size()+1, columnIndex, columnIndex);
-                	if (sheet instanceof XSSFSheet) {
-                		////System.out.println("XSSFSheet");
-                		 XSSFDataValidationHelper dvHelper = new XSSFDataValidationHelper((XSSFSheet)sheet);
-                         XSSFDataValidationConstraint dvConstraint = (XSSFDataValidationConstraint) dvHelper  
-                                 .createExplicitListConstraint(strs);  
-                       XSSFDataValidation validation = (XSSFDataValidation) dvHelper.createValidation(dvConstraint, addressList);  
-                        validation.setSuppressDropDownArrow(true);  
-                        validation.setShowErrorBox(true);  
-                        sheet.addValidationData(validation);  
-                    } else if(sheet instanceof HSSFSheet){  
-                    	////System.out.println("HSSFSheet");
-                         DVConstraint dvConstraint = DVConstraint.createExplicitListConstraint(strs);  
-                        DataValidation validation = new HSSFDataValidation(addressList, dvConstraint);  
-                        validation.setSuppressDropDownArrow(true);  
-                        validation.setShowErrorBox(true);  
-                        sheet.addValidationData(validation);  
-                    }  else if (sheet instanceof SXSSFSheet) {  
-                		////System.out.println("XSSFSheet");
-               		 XSSFDataValidationHelper dvHelper = new XSSFDataValidationHelper((XSSFSheet)sheet);  
-                        XSSFDataValidationConstraint dvConstraint = (XSSFDataValidationConstraint) dvHelper  
-                                .createExplicitListConstraint(strs);  
-                      XSSFDataValidation validation = (XSSFDataValidation) dvHelper.createValidation(dvConstraint, addressList);  
-                       validation.setSuppressDropDownArrow(true);  
-                       validation.setShowErrorBox(true);  
-                       sheet.addValidationData(validation);  
-                   }
-                	
+                    String[] strs = new String[map.size() + 1];
+                    int vi = 0;
+                    strs[vi] = "";
+                    Set<Map.Entry<String, String>> set = map.entrySet();
+                    //2、foreach遍历键值对对象的集合，得到每一个键值对对象
+                    for (Map.Entry<String, String> me : set) {
+                        vi++;
+                        //3、根据键值对对象获得键和值
+                        strs[vi] = me.getValue();
+                    }
+
+                    CellRangeAddressList addressList = new CellRangeAddressList(1, list.size() + 1, columnIndex, columnIndex);
+                    if (sheet instanceof XSSFSheet) {
+                        ////System.out.println("XSSFSheet");
+                        XSSFDataValidationHelper dvHelper = new XSSFDataValidationHelper((XSSFSheet) sheet);
+                        XSSFDataValidationConstraint dvConstraint = (XSSFDataValidationConstraint) dvHelper
+                                .createExplicitListConstraint(strs);
+                        XSSFDataValidation validation = (XSSFDataValidation) dvHelper.createValidation(dvConstraint, addressList);
+                        validation.setSuppressDropDownArrow(true);
+                        validation.setShowErrorBox(true);
+                        sheet.addValidationData(validation);
+                    } else if (sheet instanceof HSSFSheet) {
+                        ////System.out.println("HSSFSheet");
+                        DVConstraint dvConstraint = DVConstraint.createExplicitListConstraint(strs);
+                        DataValidation validation = new HSSFDataValidation(addressList, dvConstraint);
+                        validation.setSuppressDropDownArrow(true);
+                        validation.setShowErrorBox(true);
+                        sheet.addValidationData(validation);
+                    } else if (sheet instanceof SXSSFSheet) {
+                        ////System.out.println("XSSFSheet");
+                        XSSFDataValidationHelper dvHelper = new XSSFDataValidationHelper((XSSFSheet) sheet);
+                        XSSFDataValidationConstraint dvConstraint = (XSSFDataValidationConstraint) dvHelper
+                                .createExplicitListConstraint(strs);
+                        XSSFDataValidation validation = (XSSFDataValidation) dvHelper.createValidation(dvConstraint, addressList);
+                        validation.setSuppressDropDownArrow(true);
+                        validation.setShowErrorBox(true);
+                        sheet.addValidationData(validation);
+                    }
+
                 }
             }
             columnIndex++;
         }
- 
+
         int rowIndex = 1;
 
         DataFormat df = wb.createDataFormat();
@@ -334,18 +315,18 @@ public class ExcelUtils<E> {
                 //
                 // 数据
                 cell = row.createCell(columnIndex);
- 
+
                 o = field.get(t);
                 // 如果数据为空，跳过
-                if (o == null){
-                	columnIndex++;
+                if (o == null) {
+                    columnIndex++;
                     continue;
                 }
                 // 处理日期类型
                 if (o instanceof Date) {
                     CellStyle cs = wb.createCellStyle();
                     cs.setAlignment(CellStyle.ALIGN_LEFT);
-                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()){
+                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()) {
                         cs.setAlignment(excel.align());
                     }
                     cs.setDataFormat(createHelper.createDataFormat().getFormat("yyyy-MM-dd HH:mm:ss"));
@@ -354,32 +335,32 @@ public class ExcelUtils<E> {
                 } else if (o instanceof Double || o instanceof Float) {
                     CellStyle cs = wb.createCellStyle();
                     cs.setAlignment(CellStyle.ALIGN_LEFT);
-                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()){
+                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()) {
                         cs.setAlignment(excel.align());
                     }
-                    if (Excel.CELL_TYPE_PERCENT == excel.cellType()){
-                        if (Excel.CELL_DEFAULT_DECIMAL_LENGTH == excel.decimalLength()){
-                            cell.setCellValue(((Double)field.get(t))*100 + "%");
-                        } else if (Excel.CELL_INT_DECIMAL_LENGTH == excel.decimalLength()){
-                            cell.setCellValue(((Double)field.get(t)));
+                    if (Excel.CELL_TYPE_PERCENT == excel.cellType()) {
+                        if (Excel.CELL_DEFAULT_DECIMAL_LENGTH == excel.decimalLength()) {
+                            cell.setCellValue(((Double) field.get(t)) * 100 + "%");
+                        } else if (Excel.CELL_INT_DECIMAL_LENGTH == excel.decimalLength()) {
+                            cell.setCellValue(((Double) field.get(t)));
                             cs.setDataFormat(df.getFormat("0%"));
                         } else {
-                            cell.setCellValue(((Double)field.get(t)));
+                            cell.setCellValue(((Double) field.get(t)));
                             StringBuilder formateBuf = new StringBuilder("0.0");
-                            for (int i=1;i<excel.decimalLength();i++){
+                            for (int i = 1; i < excel.decimalLength(); i++) {
                                 formateBuf.append("0");
                             }
                             cs.setDataFormat(df.getFormat(formateBuf.append("%").toString()));
                         }
                     } else {
                         cell.setCellValue((Double) field.get(t));
-                        if (Excel.CELL_DEFAULT_DECIMAL_LENGTH == excel.decimalLength()){
+                        if (Excel.CELL_DEFAULT_DECIMAL_LENGTH == excel.decimalLength()) {
 
-                        } else if (Excel.CELL_INT_DECIMAL_LENGTH == excel.decimalLength()){
+                        } else if (Excel.CELL_INT_DECIMAL_LENGTH == excel.decimalLength()) {
                             cs.setDataFormat(df.getFormat("#0"));
                         } else {
                             StringBuilder formateBuf = new StringBuilder("#0.0");
-                            for (int i=1;i<excel.decimalLength();i++){
+                            for (int i = 1; i < excel.decimalLength(); i++) {
                                 formateBuf.append("0");
                             }
                             cs.setDataFormat(df.getFormat(formateBuf.toString()));
@@ -389,7 +370,7 @@ public class ExcelUtils<E> {
                 } else if (o instanceof Boolean) {
                     CellStyle cs = wb.createCellStyle();
                     cs.setAlignment(CellStyle.ALIGN_LEFT);
-                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()){
+                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()) {
                         cs.setAlignment(excel.align());
                     }
                     cell.setCellStyle(cs);
@@ -407,7 +388,7 @@ public class ExcelUtils<E> {
                 } else if (o instanceof Integer) {
                     CellStyle cs = wb.createCellStyle();
                     cs.setAlignment(CellStyle.ALIGN_LEFT);
-                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()){
+                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()) {
                         cs.setAlignment(excel.align());
                     }
                     cell.setCellStyle(cs);
@@ -423,15 +404,15 @@ public class ExcelUtils<E> {
                             cell.setCellValue(map.get(intValue.toString()));
                         }
                     }
-                }else if (o instanceof Long) {
+                } else if (o instanceof Long) {
                     CellStyle cs = wb.createCellStyle();
                     cs.setAlignment(CellStyle.ALIGN_LEFT);
-                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()){
+                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()) {
                         cs.setAlignment(excel.align());
                     }
                     cell.setCellStyle(cs);
 
-                	Long intValue = (Long) field.get(t);
+                    Long intValue = (Long) field.get(t);
                     if (edf == null) {
                         cell.setCellValue(intValue);
                     } else {
@@ -445,7 +426,7 @@ public class ExcelUtils<E> {
                 } else {
                     CellStyle cs = wb.createCellStyle();
                     cs.setAlignment(CellStyle.ALIGN_LEFT);
-                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()){
+                    if (CellStyle.ALIGN_CENTER_SELECTION >= excel.align()) {
                         cs.setAlignment(excel.align());
                     }
                     cell.setCellStyle(cs);
@@ -460,42 +441,39 @@ public class ExcelUtils<E> {
             }
             rowIndex++;
         }
- 
+
         return wb;
     }
 
     public static boolean isValidDate(String str) {
-        boolean convertSuccess=true;
+        boolean convertSuccess = true;
         // 指定日期格式为四位年/两位月份/两位日期，注意yyyy/MM/dd区分大小写；
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-        // 设置lenient为false. 否则SimpleDateFormat会比较宽松地验证日期，比如2007/02/29会被接受，并转换成2007/03/01
+            // 设置lenient为false. 否则SimpleDateFormat会比较宽松地验证日期，比如2007/02/29会被接受，并转换成2007/03/01
             format.setLenient(false);
             format.parse(str);
         } catch (ParseException e) {
             // e.printStackTrace();
 // 如果throw java.text.ParseException或者NullPointerException，就说明格式不对
-            convertSuccess=false;
+            convertSuccess = false;
         }
         return convertSuccess;
     }
- 
+
     /**
      * 从文件读取数据，最好是所有的单元格都是文本格式，日期格式要求yyyy-MM-dd HH:mm:ss,布尔类型0：真，1：假
-     * 
-     * @param edf
-     *            数据格式化
-     * 
-     * @param file
-     *            Excel文件，支持xlsx后缀，xls的没写，基本一样
+     *
+     * @param edf  数据格式化
+     * @param file Excel文件，支持xlsx后缀，xls的没写，基本一样
      * @return
      * @throws Exception
      */
     public List<E> readFromFile(ExcelDataFormatter edf, File file) throws Exception {
         Field[] fields = ReflectUtils.getClassFieldsAndSuperClassFields(e.getClass());
- 
+
         Map<String, String> textToKey = new HashMap<String, String>();
- 
+
         Excel _excel = null;
         for (Field field : fields) {
             _excel = field.getAnnotation(Excel.class);
@@ -504,7 +482,7 @@ public class ExcelUtils<E> {
             }
             textToKey.put(_excel.name(), field.getName());
         }
- 
+
         InputStream is = new FileInputStream(file);
 
         Workbook wb = new XSSFWorkbook(is);
@@ -516,47 +494,47 @@ public class ExcelUtils<E> {
         for (int i = 0; i < title.getPhysicalNumberOfCells(); i++) {
             titles[i] = title.getCell(i).getStringCellValue();
         }
- 
+
         List<E> list = new ArrayList<E>();
- 
+
         E e = null;
- 
+
         int rowIndex = 1;
         int columnCount = titles.length;
         Cell cell = null;
         Row row = null;
- 
-        for (Iterator<Row> it = sheet.rowIterator(); it.hasNext();) {
- 
+
+        for (Iterator<Row> it = sheet.rowIterator(); it.hasNext(); ) {
+
             row = it.next();
             if (rowIndex++ == 1) {
                 continue;
             }
- 
+
             if (row == null) {
                 break;
             }
- 
+
             e = get();
- 
+
             for (int i = 0; i < columnCount; i++) {
                 cell = row.getCell(i);
                 etimes = 0;
-                readCellContent(textToKey.get(titles[i]), fields, cell, e, edf,evaluator);
+                readCellContent(textToKey.get(titles[i]), fields, cell, e, edf, evaluator);
             }
             list.add(e);
         }
-        
+
         wb.close();
-        
+
         return list;
     }
-    
+
     public List<E> readFromFile(ExcelDataFormatter edf, FileInputStream is) throws Exception {
         Field[] fields = ReflectUtils.getClassFieldsAndSuperClassFields(e.getClass());
- 
+
         Map<String, String> textToKey = new HashMap<String, String>();
- 
+
         Excel _excel = null;
         for (Field field : fields) {
             _excel = field.getAnnotation(Excel.class);
@@ -565,67 +543,67 @@ public class ExcelUtils<E> {
             }
             textToKey.put(_excel.name(), field.getName());
         }
- 
-      //  InputStream is = new FileInputStream(file);
- 
+
+        //  InputStream is = new FileInputStream(file);
+
         Workbook wb = new XSSFWorkbook(is);
         FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
-        
+
         Sheet sheet = wb.getSheetAt(0);
         Row title = sheet.getRow(0);
         // 标题数组，后面用到，根据索引去标题名称，通过标题名称去字段名称用到 textToKey
         String[] titles = new String[title.getPhysicalNumberOfCells()];
         for (int i = 0; i < title.getPhysicalNumberOfCells(); i++) {
-        	if(title.getCell(i) != null){
-        	title.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
-            titles[i] = title.getCell(i).getStringCellValue();
-        	}
+            if (title.getCell(i) != null) {
+                title.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+                titles[i] = title.getCell(i).getStringCellValue();
+            }
         }
- 
+
         List<E> list = new ArrayList<E>();
- 
+
         E e = null;
- 
+
         int rowIndex = 1;
         int columnCount = titles.length;
         Cell cell = null;
         Row row = null;
- 
-        for (Iterator<Row> it = sheet.rowIterator(); it.hasNext();) {
- 
+
+        for (Iterator<Row> it = sheet.rowIterator(); it.hasNext(); ) {
+
             row = it.next();
             if (rowIndex++ <= 1) {
                 continue;
             }
- 
+
             if (row == null) {
                 break;
             }
- 
+
             e = get();
- 
+
             for (int i = 0; i < columnCount; i++) {
-            	////System.out.println("columnCount:"+columnCount);
-            	////System.out.println("titles:"+titles[i]);
+                ////System.out.println("columnCount:"+columnCount);
+                ////System.out.println("titles:"+titles[i]);
                 cell = row.getCell(i);
                 ////System.out.println("cell:"+cell);
                 etimes = 0;
-                readCellContent(textToKey.get(titles[i]), fields, cell, e, edf,evaluator );
+                readCellContent(textToKey.get(titles[i]), fields, cell, e, edf, evaluator);
             }
             list.add(e);
         }
-        
+
         wb.close();
-        
+
         return list;
     }
- 
-    
+
+
     public List<E> readFromFile_sheetName(ExcelDataFormatter edf, FileInputStream is, String sheetName) throws Exception {
         Field[] fields = ReflectUtils.getClassFieldsAndSuperClassFields(e.getClass());
- 
+
         Map<String, String> textToKey = new HashMap<String, String>();
- 
+
         Excel _excel = null;
         for (Field field : fields) {
             _excel = field.getAnnotation(Excel.class);
@@ -634,69 +612,69 @@ public class ExcelUtils<E> {
             }
             textToKey.put(_excel.name(), field.getName());
         }
- 
-      //  InputStream is = new FileInputStream(file);
- 
+
+        //  InputStream is = new FileInputStream(file);
+
         Workbook wb = new XSSFWorkbook(is);
         FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
         //Sheet sheet = wb.getSheetAt(0);
         Sheet sheet = wb.getSheet(sheetName);
-        
+
         Row title = sheet.getRow(0);
         // 标题数组，后面用到，根据索引去标题名称，通过标题名称去字段名称用到 textToKey
         String[] titles = new String[title.getPhysicalNumberOfCells()];
         for (int i = 0; i < title.getPhysicalNumberOfCells(); i++) {
-        	if(title.getCell(i) != null){
-            	title.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+            if (title.getCell(i) != null) {
+                title.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
                 titles[i] = title.getCell(i).getStringCellValue();
             }
         }
- 
+
         List<E> list = new ArrayList<E>();
- 
+
         E e = null;
- 
+
         int rowIndex = 1;
         int columnCount = titles.length;
         Cell cell = null;
         Row row = null;
- 
-        for (Iterator<Row> it = sheet.rowIterator(); it.hasNext();) {
- 
+
+        for (Iterator<Row> it = sheet.rowIterator(); it.hasNext(); ) {
+
             row = it.next();
             if (rowIndex++ <= 1) {
                 continue;
             }
- 
+
             if (row == null) {
                 break;
             }
- 
+
             e = get();
- 
+
             for (int i = 0; i < columnCount; i++) {
-            	////System.out.println("columnCount:"+columnCount);
-            	////System.out.println("titles:"+titles[i]);
+                ////System.out.println("columnCount:"+columnCount);
+                ////System.out.println("titles:"+titles[i]);
                 cell = row.getCell(i);
                 ////System.out.println("cell:"+cell);
                 etimes = 0;
-                readCellContent(textToKey.get(titles[i]), fields, cell, e, edf,evaluator );
+                readCellContent(textToKey.get(titles[i]), fields, cell, e, edf, evaluator);
             }
             list.add(e);
         }
-        
+
         wb.close();
-        
+
         return list;
     }
-    
-    
+
+
     public List<E> readFromFile_sheetName(ExcelDataFormatter edf, Workbook wb, String sheetName, SimpleDateFormat sdf) throws Exception {
-    	this.sdf =sdf;
+        this.sdf = sdf;
         Field[] fields = ReflectUtils.getClassFieldsAndSuperClassFields(e.getClass());
- 
+
         Map<String, String> textToKey = new HashMap<String, String>();
- 
+
         Excel _excel = null;
         for (Field field : fields) {
             _excel = field.getAnnotation(Excel.class);
@@ -705,119 +683,116 @@ public class ExcelUtils<E> {
             }
             textToKey.put(_excel.name(), field.getName());
         }
- 
-      //  InputStream is = new FileInputStream(file);
- 
-       // Workbook wb = new XSSFWorkbook(is);
- 
+
+        //  InputStream is = new FileInputStream(file);
+
+        // Workbook wb = new XSSFWorkbook(is);
+
         //Sheet sheet = wb.getSheetAt(0);
         FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
-        
+
         Sheet sheet = wb.getSheet(sheetName);
-        
+
         Row title = sheet.getRow(0);
         // 标题数组，后面用到，根据索引去标题名称，通过标题名称去字段名称用到 textToKey
         String[] titles = new String[title.getPhysicalNumberOfCells()];
         for (int i = 0; i < title.getPhysicalNumberOfCells(); i++) {
-        	if(title.getCell(i) != null){
-            	title.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+            if (title.getCell(i) != null) {
+                title.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
                 titles[i] = title.getCell(i).getStringCellValue();
             }
         }
- 
+
         List<E> list = new ArrayList<E>();
- 
+
         E e = null;
- 
+
         int rowIndex = 1;
         int columnCount = titles.length;
         Cell cell = null;
         Row row = null;
- 
-        for (Iterator<Row> it = sheet.rowIterator(); it.hasNext();) {
- 
+
+        for (Iterator<Row> it = sheet.rowIterator(); it.hasNext(); ) {
+
             row = it.next();
             if (rowIndex++ <= 1) {
                 continue;
             }
- 
+
             if (row == null) {
                 break;
             }
- 
+
             e = get();
- 
+
             for (int i = 0; i < columnCount; i++) {
-            	////System.out.println("columnCount:"+columnCount);
-            	////System.out.println("titles:"+titles[i]);
+                ////System.out.println("columnCount:"+columnCount);
+                ////System.out.println("titles:"+titles[i]);
                 cell = row.getCell(i);
                 ////System.out.println("cell:"+cell);
                 etimes = 0;
-                readCellContent(textToKey.get(titles[i]), fields, cell, e, edf,evaluator );
+                readCellContent(textToKey.get(titles[i]), fields, cell, e, edf, evaluator);
             }
             list.add(e);
         }
-        
-       // wb.close();
-        
+
+        // wb.close();
+
         return list;
     }
- 
+
     /**
      * 从单元格读取数据，根据不同的数据类型，使用不同的方式读取<br>
      * 有时候POI自作聪明，经常和我们期待的数据格式不一样，会报异常，<br>
      * 我们这里采取强硬的方式<br>
      * 使用各种方法，知道尝试到读到数据为止，然后根据Bean的数据类型，进行相应的转换<br>
      * 如果尝试完了（总共7次），还是不能得到数据，那么抛个异常出来，没办法了
-     * 
-     * @param key
-     *            当前单元格对应的Bean字段
-     * @param fields
-     *            Bean所有的字段数组
-     * @param cell
-     *            单元格对象
+     *
+     * @param key    当前单元格对应的Bean字段
+     * @param fields Bean所有的字段数组
+     * @param cell   单元格对象
      * @param e
      * @throws Exception
      */
     public void readCellContent(String key, Field[] fields, Cell cell, E e, ExcelDataFormatter edf, FormulaEvaluator evaluator) throws Exception {
- 
+
         Object o = null;
         if (cell == null) {
             return;
         }
         try {
             switch (cell.getCellType()) {
-            case XSSFCell.CELL_TYPE_BOOLEAN:
-                o = cell.getBooleanCellValue();
-                break;
-            case XSSFCell.CELL_TYPE_NUMERIC:
-                o = cell.getNumericCellValue();
-                if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                    o = org.apache.poi.ss.usermodel.DateUtil.getJavaDate(cell.getNumericCellValue());
-                }
-                break;
-            case XSSFCell.CELL_TYPE_STRING:
-                o = cell.getStringCellValue();
-                break;
-            case XSSFCell.CELL_TYPE_ERROR:
-                o = cell.getErrorCellValue();
-                break;
-            case XSSFCell.CELL_TYPE_BLANK:
-                o = null;
-                break;
-            case XSSFCell.CELL_TYPE_FORMULA:
-               // o = cell.getStringCellValue();
-               o =evaluator.evaluateFormulaCell(cell); 
-                break;
-            default:
-                o = null;
-                break;
+                case XSSFCell.CELL_TYPE_BOOLEAN:
+                    o = cell.getBooleanCellValue();
+                    break;
+                case XSSFCell.CELL_TYPE_NUMERIC:
+                    o = cell.getNumericCellValue();
+                    if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                        o = org.apache.poi.ss.usermodel.DateUtil.getJavaDate(cell.getNumericCellValue());
+                    }
+                    break;
+                case XSSFCell.CELL_TYPE_STRING:
+                    o = cell.getStringCellValue();
+                    break;
+                case XSSFCell.CELL_TYPE_ERROR:
+                    o = cell.getErrorCellValue();
+                    break;
+                case XSSFCell.CELL_TYPE_BLANK:
+                    o = null;
+                    break;
+                case XSSFCell.CELL_TYPE_FORMULA:
+                    // o = cell.getStringCellValue();
+                    o = evaluator.evaluateFormulaCell(cell);
+                    break;
+                default:
+                    o = null;
+                    break;
             }
 
             if (o == null) {
                 return;
             }
- 
+
             for (Field field : fields) {
                 field.setAccessible(true);
                 if (field.getName().equals(key)) {
@@ -831,7 +806,7 @@ public class ExcelUtils<E> {
                             bool = false;
                         }
                     }
- 
+
                     if (field.getType().equals(Date.class)) {
                         if (o.getClass().equals(Date.class)) {
                             field.set(e, o);
@@ -840,8 +815,8 @@ public class ExcelUtils<E> {
                         }
                     } else if (field.getType().equals(String.class)) {
                         if (o.getClass().equals(String.class)) {
-                        	////System.out.println(e);
-                        	////System.out.println(o);
+                            ////System.out.println(e);
+                            ////System.out.println(o);
                             field.set(e, o);
                         } else {
                             field.set(e, o.toString());
@@ -854,7 +829,7 @@ public class ExcelUtils<E> {
                             if (bool) {
                                 field.set(e, map.get(o.toString()) != null ? Long.parseLong(map.get(o.toString())) : Long.parseLong(o.toString()));
                             } else {
-                                field.set(e,  Long.parseLong(String.valueOf( Double.valueOf(o.toString()).intValue())));
+                                field.set(e, Long.parseLong(String.valueOf(Double.valueOf(o.toString()).intValue())));
                             }
                         }
                     } else if (field.getType().equals(Integer.class)) {
@@ -867,7 +842,7 @@ public class ExcelUtils<E> {
                             } else {
                                 field.set(e, Integer.parseInt(o.toString()));
                             }
- 
+
                         }
                     } else if (field.getType().equals(BigDecimal.class)) {
                         if (o.getClass().equals(BigDecimal.class)) {
@@ -898,23 +873,23 @@ public class ExcelUtils<E> {
                         } else {
                             field.set(e, Double.parseDouble(o.toString()));
                         }
- 
+
                     }
- 
+
                 }
             }
- 
+
         } catch (Exception ex) {
             ex.printStackTrace();
             // 如果还是读到的数据格式还是不对，只能放弃了
             //if (etimes > 1) {
-                throw ex;
-           // }
-           // etimes++;
+            throw ex;
+            // }
+            // etimes++;
            /* if (o == null) {
                 readCellContent(key, fields, cell, e, edf,evaluator );
             }*/
         }
     }
- 
+
 }

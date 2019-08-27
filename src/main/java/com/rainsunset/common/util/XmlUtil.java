@@ -33,7 +33,7 @@ public class XmlUtil {
      * @author : ligangwei / 2019-05-29
      */
     public static Document parseXMLToDocument(String xml) {
-        if (xml == null || "".equals(xml)){
+        if (xml == null || "".equals(xml)) {
             return null;
         }
         Document document = null;
@@ -54,15 +54,15 @@ public class XmlUtil {
      * @return Object t
      * @author : ligangwei / 2019-05-29
      */
-    public static <T> T parseXMLToObject(String xml, Class<T> clazz){
+    public static <T> T parseXMLToObject(String xml, Class<T> clazz) {
         Document doc = parseXMLToDocument(xml);
         if (doc == null) {
             return null;
         }
-        try{
+        try {
             Element root = doc.getRootElement();
-            return (T) parseXMLChildToObject(root,clazz);
-        }catch(Exception e){
+            return (T) parseXMLChildToObject(root, clazz);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -77,7 +77,7 @@ public class XmlUtil {
      * @return Object t
      * @author : ligangwei / 2019-05-29
      */
-    public static <T> T parseXMLToObjectWithoutRoot(String xml, Class<T> clazz){
+    public static <T> T parseXMLToObjectWithoutRoot(String xml, Class<T> clazz) {
         Document doc = parseXMLToDocument(xml);
         if (doc == null) {
             return null;
@@ -140,7 +140,7 @@ public class XmlUtil {
      * @return Map map
      * @author : ligangwei / 2019-05-29
      */
-    public static Map<String, String> parseXMLToMap(String xml){
+    public static Map<String, String> parseXMLToMap(String xml) {
         Document doc = parseXMLToDocument(xml);
         if (doc == null) {
             return null;
@@ -151,10 +151,10 @@ public class XmlUtil {
         }
         Iterator<Element> iterator = root.elementIterator();
         Map<String, String> dataMap = new HashMap<>();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Element element = iterator.next();
-            if (element != null){
-                dataMap.put(element.getName(),element.getText());
+            if (element != null) {
+                dataMap.put(element.getName(), element.getText());
             }
         }
         return dataMap;
@@ -169,13 +169,13 @@ public class XmlUtil {
      * @return List list
      * @author : ligangwei / 2019-05-29
      */
-    public static <T> List<T> parseXMLToList(String xml, Class<T> clazz){
+    public static <T> List<T> parseXMLToList(String xml, Class<T> clazz) {
         Document doc = parseXMLToDocument(xml);
-        try{
+        try {
             Element root = doc.getRootElement();
             Iterator iterator = root.elementIterator();
-            return (List<T>) parseXMLChildToList(iterator,clazz);
-        }catch(Exception e){
+            return (List<T>) parseXMLChildToList(iterator, clazz);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -228,7 +228,7 @@ public class XmlUtil {
                     }
                 }
             }
-            if (objIsNull){
+            if (objIsNull) {
                 return null;
             }
             return object;
@@ -315,7 +315,7 @@ public class XmlUtil {
      * @return String string
      * @author : ligangwei / 2019-05-29
      */
-    public static String createXMLStringByObject(Object object, String rootName){
+    public static String createXMLStringByObject(Object object, String rootName) {
         Document doc = createXmlDocumentByObject(object, rootName);
         return doc == null ? null : doc.asXML().replaceFirst("\\s*<[^<>]+>\\s*", "");
     }
@@ -357,7 +357,7 @@ public class XmlUtil {
      * @return String string
      * @author : ligangwei / 2019-05-29
      */
-    public static String createXMLStringByMap(Map<String, String> dataMap, String rootName){
+    public static String createXMLStringByMap(Map<String, String> dataMap, String rootName) {
         Document doc = createXMLDocumentByMap(dataMap, rootName);
         return doc == null ? null : doc.asXML().replaceFirst("\\s*<[^<>]+>\\s*", "");
     }
@@ -379,7 +379,7 @@ public class XmlUtil {
         Element root = new DOMElement(rootName);
         doc.add(root);
         for (Map.Entry<String, String> entry : dataMap.entrySet()) {
-            if (entry.getValue() != null && !"".equals(entry.getValue())){
+            if (entry.getValue() != null && !"".equals(entry.getValue())) {
                 root.addElement(entry.getKey()).setText(entry.getValue());
             }
         }
@@ -417,7 +417,7 @@ public class XmlUtil {
         if (isSimpleType(type)) {
             try {
                 String elementText = toString(getter(object, firstLetterToUpper(field.getName())));
-                if(elementText != null && !"".equals(elementText)){
+                if (elementText != null && !"".equals(elementText)) {
                     element.addElement(field.getName())
                             .setText(toString(getter(object, firstLetterToUpper(field.getName()))));
                 }
@@ -462,7 +462,7 @@ public class XmlUtil {
      * @return boolean boolean
      * @author : ligangwei / 2019-05-29
      */
-    private static boolean isSimpleType(Class<?> type){
+    private static boolean isSimpleType(Class<?> type) {
         if (type == String.class
                 || type == int.class || type == Integer.class
                 || type == double.class || type == Double.class
@@ -472,9 +472,9 @@ public class XmlUtil {
                 || type == byte.class || type == Byte.class
                 || type == boolean.class || type == Boolean.class
                 || type == short.class || type == Short.class
-                || type==Date.class) {
+                || type == Date.class) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -520,23 +520,22 @@ public class XmlUtil {
             method.invoke(obj, toInteger(value));
         } else if (type == double.class || type == Double.class) {
             method.invoke(obj, toDouble(value));
-        } else if(type == char.class || type == Character.class) {
-            method.invoke(obj,toCharacter(value));
-        } else if(type == long.class || type == Long.class) {
-            method.invoke(obj,toLong(value));
-        } else if(type == float.class || type == Float.class) {
-            method.invoke(obj,toFloat(value));
-        } else if(type == byte.class || type == Byte.class) {
-            method.invoke(obj,toByte(value));
-        } else if(type == boolean.class || type == Boolean.class) {
-            method.invoke(obj,toBoolean(value));
-        } else if(type == short.class || type == Short.class) {
-            method.invoke(obj,toShort(value));
-        } else if(type == Date.class){
+        } else if (type == char.class || type == Character.class) {
+            method.invoke(obj, toCharacter(value));
+        } else if (type == long.class || type == Long.class) {
+            method.invoke(obj, toLong(value));
+        } else if (type == float.class || type == Float.class) {
+            method.invoke(obj, toFloat(value));
+        } else if (type == byte.class || type == Byte.class) {
+            method.invoke(obj, toByte(value));
+        } else if (type == boolean.class || type == Boolean.class) {
+            method.invoke(obj, toBoolean(value));
+        } else if (type == short.class || type == Short.class) {
+            method.invoke(obj, toShort(value));
+        } else if (type == Date.class) {
             method.invoke(obj, df.parse(String.valueOf(value)));
-        }
-        else {
-            method.invoke(obj,value);
+        } else {
+            method.invoke(obj, value);
         }
 
     }
@@ -605,9 +604,9 @@ public class XmlUtil {
      * @return Double double
      * @author : ligangwei / 2019-05-29
      */
-    private static Double toDouble(Object object){
+    private static Double toDouble(Object object) {
         String str = toString(object);
-        if("".equals(str)) {
+        if ("".equals(str)) {
             return 0.0;
         } else {
             return Double.parseDouble(str);
@@ -621,9 +620,9 @@ public class XmlUtil {
      * @return Float float
      * @author : ligangwei / 2019-05-29
      */
-    private static Float toFloat(Object object){
+    private static Float toFloat(Object object) {
         String str = toString(object);
-        if("".equals(str)) {
+        if ("".equals(str)) {
             return 0.0f;
         } else {
             return Float.parseFloat(str);
@@ -637,9 +636,9 @@ public class XmlUtil {
      * @return Long long
      * @author : ligangwei / 2019-05-29
      */
-    private static Long toLong(Object object){
+    private static Long toLong(Object object) {
         String str = toString(object);
-        if("".equals(str)) {
+        if ("".equals(str)) {
             return 0L;
         } else {
             return Long.parseLong(str);
@@ -653,7 +652,7 @@ public class XmlUtil {
      * @return Boolean boolean
      * @author : ligangwei / 2019-05-29
      */
-    private static Boolean toBoolean(Object object){
+    private static Boolean toBoolean(Object object) {
         String str = toString(object);
         if ("".equals(str)) {
             return true;
@@ -669,9 +668,9 @@ public class XmlUtil {
      * @return Short short
      * @author : ligangwei / 2019-05-29
      */
-    private static Short toShort(Object object){
+    private static Short toShort(Object object) {
         String str = toString(object);
-        if("".equals(str)) {
+        if ("".equals(str)) {
             return 0;
         } else {
             return Short.parseShort(str);
@@ -685,9 +684,9 @@ public class XmlUtil {
      * @return Byte byte
      * @author : ligangwei / 2019-05-29
      */
-    private static Byte toByte(Object object){
+    private static Byte toByte(Object object) {
         String str = toString(object);
-        if("".equals(str)) {
+        if ("".equals(str)) {
             return 0;
         } else {
             return Byte.parseByte(str);
@@ -701,7 +700,7 @@ public class XmlUtil {
      * @return Character character
      * @author : ligangwei / 2019-05-29
      */
-    private static Character toCharacter(Object object){
+    private static Character toCharacter(Object object) {
         if (object == null) {
             return '\u0beb';
         } else {

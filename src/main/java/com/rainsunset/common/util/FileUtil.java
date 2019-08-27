@@ -27,14 +27,14 @@ public class FileUtil {
      */
     public final static Map<String, String> FILE_TYPE_MAP = new HashMap<String, String>();
 
+    static {
+        getAllFileType(); // 初始化文件类型信息
+    }
+
     /**
      * File util.
      */
-    private FileUtil(){
-    }
-
-    static {
-        getAllFileType(); // 初始化文件类型信息
+    private FileUtil() {
     }
 
     /**
@@ -65,7 +65,7 @@ public class FileUtil {
         FILE_TYPE_MAP.put("38425053", "psd"); // Photoshop (psd)
 //        FILE_TYPE_MAP.put("38425053000100000000", "psd"); // Photoshop (psd)
         FILE_TYPE_MAP.put("46726f6d3a203d3f6762", "eml"); // Email [Outlook
-                                                          // Express 6] (eml)
+        // Express 6] (eml)
         FILE_TYPE_MAP.put("d0cf11e0", "doc"); // MS Excel // 注意：word、msi 和 // excel的文件头一样
 //        FILE_TYPE_MAP.put("d0cf11e0a1b11ae10000", "doc"); // MS Excel // 注意：word、msi 和 // excel的文件头一样
         FILE_TYPE_MAP.put("d0cf11e0a1b11ae10000", "vsd"); // Visio 绘图
@@ -123,7 +123,7 @@ public class FileUtil {
         if (src == null || src.length <= 0) {
             return null;
         }
-        for (int i = 0;i < src.length;i++) {
+        for (int i = 0; i < src.length; i++) {
             int v = src[i] & 0xFF;
             String hv = Integer.toHexString(v);
             if (hv.length() < 2) {
@@ -159,11 +159,9 @@ public class FileUtil {
                     break;
                 }
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return res;
@@ -198,11 +196,9 @@ public class FileUtil {
                     break;
                 }
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return res;
@@ -237,7 +233,7 @@ public class FileUtil {
      * @return string
      * @author : ligangwei / 2019-05-29
      */
-    public static String getFileTypeByHeadByte(byte data[]){
+    public static String getFileTypeByHeadByte(byte data[]) {
         String res = null;
         String fileCode = bytesToHexString(data);
         System.out.println(fileCode);
@@ -262,12 +258,12 @@ public class FileUtil {
      * @return boolean
      * @author : ligangwei / 2019-05-29
      */
-    public static boolean isFileInSizeLimit(long fileSize,Integer sizeLimit){
+    public static boolean isFileInSizeLimit(long fileSize, Integer sizeLimit) {
         boolean res = false;
-        if (null == sizeLimit){
+        if (null == sizeLimit) {
             return true;
         }
-        int fileIntSize = (int) (fileSize/(1024*1024));
+        int fileIntSize = (int) (fileSize / (1024 * 1024));
         return (sizeLimit > fileIntSize);
     }
 }

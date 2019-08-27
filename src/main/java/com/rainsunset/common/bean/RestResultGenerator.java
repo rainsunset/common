@@ -14,7 +14,7 @@ package com.rainsunset.common.bean;
  */
 public class RestResultGenerator {
 
-    public static <T> ResponseResult<T> genResult(T data){
+    public static <T> ResponseResult<T> genResult(T data) {
         ResponseResult<T> result = new ResponseResult<T>();
         result.setData(data);
         result.setSuccess(true);
@@ -22,7 +22,7 @@ public class RestResultGenerator {
         return result;
     }
 
-    public static <T> ResponseResult<T> genResult(ErrorInfoInterface errorInfo){
+    public static <T> ResponseResult<T> genResult(ErrorInfoInterface errorInfo) {
         ResponseResult<T> result = new ResponseResult<T>();
         result.setSuccess(false);
         result.setErrorcode(errorInfo.getCode());
@@ -30,14 +30,14 @@ public class RestResultGenerator {
         return result;
     }
 
-    public static <T> ResponseResult<T> genErrorResult(String msg){
+    public static <T> ResponseResult<T> genErrorResult(String msg) {
         ResponseResult<T> result = new ResponseResult<T>();
         result.setSuccess(false);
         result.setMessage(msg);
         return result;
     }
 
-    public static <T> ResponseResult<T> genErrorResult(T data){
+    public static <T> ResponseResult<T> genErrorResult(T data) {
         ResponseResult<T> result = new ResponseResult<T>();
         result.setSuccess(false);
         result.setData(data);

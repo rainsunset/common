@@ -25,32 +25,32 @@ public class Sha1 {
      * @throws DigestException the digest exception
      * @author : ligangwei / 2019-05-29
      */
-    public static String SHA1(Map<String,Object> maps) throws DigestException {
+    public static String SHA1(Map<String, Object> maps) throws DigestException {
         //获取信息摘要 - 参数字典排序后字符串  
-        String decrypt = getOrderByLexicographic(maps);  
+        String decrypt = getOrderByLexicographic(maps);
         //System.out.println("decrypt->>>>>"+decrypt);
-        try {  
+        try {
             //指定sha1算法  
-            MessageDigest digest = MessageDigest.getInstance("SHA-1");  
-            digest.update(decrypt.getBytes());  
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            digest.update(decrypt.getBytes());
             //获取字节数组  
-            byte messageDigest[] = digest.digest();  
+            byte messageDigest[] = digest.digest();
             // Create Hex String  
-            StringBuffer hexString = new StringBuffer();  
+            StringBuffer hexString = new StringBuffer();
             // 字节数组转换为 十六进制 数  
-            for (int i = 0; i < messageDigest.length; i++) {  
-                String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);  
-                if (shaHex.length() < 2) {  
-                    hexString.append(0);  
-                }  
-                hexString.append(shaHex);  
-            }  
-            return hexString.toString().toUpperCase();  
-  
-        } catch (NoSuchAlgorithmException e) {  
-            e.printStackTrace();  
-            throw new DigestException("签名错误！");  
-        }  
+            for (int i = 0; i < messageDigest.length; i++) {
+                String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
+                if (shaHex.length() < 2) {
+                    hexString.append(0);
+                }
+                hexString.append(shaHex);
+            }
+            return hexString.toString().toUpperCase();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            throw new DigestException("签名错误！");
+        }
     }
 
     /**
@@ -61,32 +61,32 @@ public class Sha1 {
      * @throws DigestException the digest exception
      * @author : ligangwei / 2019-05-29
      */
-    public static String SHA1(String decrypt ) throws DigestException {
+    public static String SHA1(String decrypt) throws DigestException {
         //获取信息摘要 - 参数字典排序后字符串  
-       // String decrypt = getOrderByLexicographic(maps);  
+        // String decrypt = getOrderByLexicographic(maps);
         //System.out.println("decrypt->>>>>"+decrypt);
-        try {  
+        try {
             //指定sha1算法  
-            MessageDigest digest = MessageDigest.getInstance("SHA-1");  
-            digest.update(decrypt.getBytes());  
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            digest.update(decrypt.getBytes());
             //获取字节数组  
-            byte messageDigest[] = digest.digest();  
+            byte messageDigest[] = digest.digest();
             // Create Hex String  
-            StringBuffer hexString = new StringBuffer();  
+            StringBuffer hexString = new StringBuffer();
             // 字节数组转换为 十六进制 数  
-            for (int i = 0; i < messageDigest.length; i++) {  
-                String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);  
-                if (shaHex.length() < 2) {  
-                    hexString.append(0);  
-                }  
-                hexString.append(shaHex);  
-            }  
-            return hexString.toString();  
-  
-        } catch (NoSuchAlgorithmException e) {  
-            e.printStackTrace();  
-            throw new DigestException("签名错误！");  
-        }  
+            for (int i = 0; i < messageDigest.length; i++) {
+                String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
+                if (shaHex.length() < 2) {
+                    hexString.append(0);
+                }
+                hexString.append(shaHex);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            throw new DigestException("签名错误！");
+        }
     }
 
     /**
@@ -96,8 +96,8 @@ public class Sha1 {
      * @return String 排序后的字符串
      * @author : ligangwei / 2019-05-29
      */
-    private static String getOrderByLexicographic(Map<String,Object> maps){
-        return splitParams(lexicographicOrder(getParamsName(maps)),maps);  
+    private static String getOrderByLexicographic(Map<String, Object> maps) {
+        return splitParams(lexicographicOrder(getParamsName(maps)), maps);
     }
 
     /**
@@ -107,12 +107,12 @@ public class Sha1 {
      * @return list list
      * @author : ligangwei / 2019-05-29
      */
-    private static List<String> getParamsName(Map<String,Object> maps){
-        List<String> paramNames = new ArrayList<String>();  
-        for(Map.Entry<String,Object> entry : maps.entrySet()){  
-            paramNames.add(entry.getKey());  
-        }  
-        return paramNames;  
+    private static List<String> getParamsName(Map<String, Object> maps) {
+        List<String> paramNames = new ArrayList<String>();
+        for (Map.Entry<String, Object> entry : maps.entrySet()) {
+            paramNames.add(entry.getKey());
+        }
+        return paramNames;
     }
 
     /**
@@ -122,9 +122,9 @@ public class Sha1 {
      * @return 排序后的参数名称List集合 list
      * @author : ligangwei / 2019-05-29
      */
-    private static List<String> lexicographicOrder(List<String> paramNames){
-        Collections.sort(paramNames);  
-        return paramNames;  
+    private static List<String> lexicographicOrder(List<String> paramNames) {
+        Collections.sort(paramNames);
+        return paramNames;
     }
 
     /**
@@ -135,21 +135,21 @@ public class Sha1 {
      * @return String 拼接后的字符串
      * @author : ligangwei / 2019-05-29
      */
-    private static String splitParams(List<String> paramNames,Map<String,Object> maps){
-        StringBuilder paramStr = new StringBuilder();  
-        for(String paramName : paramNames){  
-        	paramStr.append("&");
-            paramStr.append(paramName);  
-            for(Map.Entry<String,Object> entry : maps.entrySet()){  
-                if(paramName.equals(entry.getKey())){  
-                	paramStr.append("=");
-                    paramStr.append(String.valueOf(entry.getValue()));  
-                }  
-            }  
-        }  
-        
-        
-        return paramStr.toString().substring(1);  
-    } 
-    
+    private static String splitParams(List<String> paramNames, Map<String, Object> maps) {
+        StringBuilder paramStr = new StringBuilder();
+        for (String paramName : paramNames) {
+            paramStr.append("&");
+            paramStr.append(paramName);
+            for (Map.Entry<String, Object> entry : maps.entrySet()) {
+                if (paramName.equals(entry.getKey())) {
+                    paramStr.append("=");
+                    paramStr.append(String.valueOf(entry.getValue()));
+                }
+            }
+        }
+
+
+        return paramStr.toString().substring(1);
+    }
+
 }

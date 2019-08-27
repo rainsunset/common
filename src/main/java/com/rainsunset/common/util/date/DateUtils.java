@@ -69,11 +69,11 @@ public final class DateUtils {
      * @throws ParseException the parse exception
      * @author : ligangwei / 2019-05-29
      */
-    public static String getMinMonthDate(String date,String pattern) throws ParseException {
+    public static String getMinMonthDate(String date, String pattern) throws ParseException {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(DateUtil.parse(date,pattern));
+        calendar.setTime(DateUtil.parse(date, pattern));
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-        return DateUtil.format(calendar.getTime(),DateUtil.FORMAT_SHORT);
+        return DateUtil.format(calendar.getTime(), DateUtil.FORMAT_SHORT);
     }
 
     /**
@@ -85,9 +85,9 @@ public final class DateUtils {
      * @throws ParseException the parse exception
      * @author : ligangwei / 2019-05-29
      */
-    public static String getMaxMonthDate(String date,String pattern) throws ParseException {
+    public static String getMaxMonthDate(String date, String pattern) throws ParseException {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(DateUtil.parse(date,pattern));
+        calendar.setTime(DateUtil.parse(date, pattern));
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         return DateUtil.format(calendar.getTime());
     }
@@ -99,10 +99,10 @@ public final class DateUtils {
      * @author : ligangwei / 2019-05-29
      */
     public static String getMinMonthDate() {
-        Calendar calendar = Calendar.getInstance();  
-        calendar.setTime(new Date());  
-		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));  
-		return DateUtil.format(calendar.getTime(),DateUtil.FORMAT_SHORT);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+        return DateUtil.format(calendar.getTime(), DateUtil.FORMAT_SHORT);
     }
 
     /**
@@ -111,11 +111,11 @@ public final class DateUtils {
      * @return string
      * @author : ligangwei / 2019-05-29
      */
-    public static String getMaxMonthDate(){
-        Calendar calendar = Calendar.getInstance();  
-        calendar.setTime(new Date());  
-		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));  
-		return DateUtil.format(calendar.getTime(),DateUtil.FORMAT_SHORT);
+    public static String getMaxMonthDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return DateUtil.format(calendar.getTime(), DateUtil.FORMAT_SHORT);
     }
 
     /**
@@ -125,10 +125,10 @@ public final class DateUtils {
      * @author : ligangwei / 2019-05-29
      */
     public static String getHalfYearAgo() {
-        Calendar calendar = Calendar.getInstance();  
-        calendar.setTime(new Date());  
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
         calendar.add(Calendar.MONTH, -6);
-		return DateUtil.format(calendar.getTime(),DateUtil.FORMAT_SHORT);
+        return DateUtil.format(calendar.getTime(), DateUtil.FORMAT_SHORT);
     }
 
     /**
@@ -138,10 +138,10 @@ public final class DateUtils {
      * @author : ligangwei / 2019-05-29
      */
     public static String getOneYearAgo() {
-        Calendar calendar = Calendar.getInstance();  
-        calendar.setTime(new Date());  
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
         calendar.add(Calendar.YEAR, -1);
-		return DateUtil.format(calendar.getTime(),DateUtil.FORMAT_SHORT);
+        return DateUtil.format(calendar.getTime(), DateUtil.FORMAT_SHORT);
     }
 
     /**
@@ -151,10 +151,10 @@ public final class DateUtils {
      * @author : ligangwei / 2019-05-29
      */
     public static String getTwoYearAgo() {
-        Calendar calendar = Calendar.getInstance();  
-        calendar.setTime(new Date());  
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
         calendar.add(Calendar.YEAR, -2);
-		return DateUtil.format(calendar.getTime(),DateUtil.FORMAT_SHORT);
+        return DateUtil.format(calendar.getTime(), DateUtil.FORMAT_SHORT);
     }
 
     /**
@@ -166,12 +166,12 @@ public final class DateUtils {
      * @return date
      * @author : ligangwei / 2019-05-29
      */
-    public static Date getTimes(int year,int month,int day) {
-        Calendar cal = Calendar.getInstance();  
-        cal.set(Calendar.YEAR, year);  
-        cal.set(Calendar.MONTH, month-1);  
+    public static Date getTimes(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month - 1);
         cal.set(Calendar.DATE, day);
-        return  cal.getTime();  
+        return cal.getTime();
     }
 
     /**
@@ -183,9 +183,9 @@ public final class DateUtils {
      * @return boolean
      * @author : ligangwei / 2019-05-29
      */
-    public static boolean jugdeInThisRange(Date dateStart,Date dateEnd,Date compareDate){
+    public static boolean jugdeInThisRange(Date dateStart, Date dateEnd, Date compareDate) {
         boolean flag = false;
-        if(compareDate.getTime()>=dateStart.getTime() && dateEnd.getTime()>=compareDate.getTime()){
+        if (compareDate.getTime() >= dateStart.getTime() && dateEnd.getTime() >= compareDate.getTime()) {
             flag = true;
         }
         return flag;
@@ -212,7 +212,7 @@ public final class DateUtils {
         int day = cal.get(Calendar.DAY_OF_WEEK);
         // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
         cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
-        return DateUtil.format(cal.getTime(),DateUtil.FORMAT_SHORT);
+        return DateUtil.format(cal.getTime(), DateUtil.FORMAT_SHORT);
     }
 
 }

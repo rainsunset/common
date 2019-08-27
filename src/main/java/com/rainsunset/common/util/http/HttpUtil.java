@@ -21,8 +21,10 @@ public class HttpUtil {
     private final static Logger mLogger = LoggerFactory.getLogger(HttpUtil.class);
 
     //region 同步请求
+
     /**
      * HTTP 同步GET请求
+     *
      * @param url url
      * @return String
      * @throws IOException
@@ -33,16 +35,17 @@ public class HttpUtil {
 
     /**
      * HTTP 同步GET请求
-     * @param url url
+     *
+     * @param url     url
      * @param headers header
-     * @param params 请求参数
+     * @param params  请求参数
      * @return String
      * @throws IOException
      */
     public static String httpGetString(String url, Map<String, String> headers, Map<String, String> params) throws
             IOException {
-        Response response = httpGetResponse(url,headers,params);
-        if (response.isSuccessful()){
+        Response response = httpGetResponse(url, headers, params);
+        if (response.isSuccessful()) {
             return response.body().string();
         }
         return null;
@@ -50,6 +53,7 @@ public class HttpUtil {
 
     /**
      * HTTP 同步GET请求
+     *
      * @param url url
      * @return inputStream
      * @throws IOException
@@ -60,16 +64,17 @@ public class HttpUtil {
 
     /**
      * HTTP 同步GET请求
-     * @param url url
+     *
+     * @param url     url
      * @param headers header
-     * @param params 请求参数
+     * @param params  请求参数
      * @return inputStream
      * @throws IOException
      */
     public static InputStream httpGetInputStream(String url, Map<String, String> headers, Map<String, String> params) throws
             IOException {
-        Response response = httpGetResponse(url,headers,params);
-        if (response.isSuccessful()){
+        Response response = httpGetResponse(url, headers, params);
+        if (response.isSuccessful()) {
             return response.body().byteStream();
         }
         return null;
@@ -77,9 +82,10 @@ public class HttpUtil {
 
     /**
      * HTTP 同步GET请求
-     * @param url url
+     *
+     * @param url     url
      * @param headers header
-     * @param params 请求参数
+     * @param params  请求参数
      * @return response
      * @throws IOException
      */
@@ -87,16 +93,17 @@ public class HttpUtil {
             IOException {
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
         //Header And Url
-        Request.Builder builder = buildHanderAndUrl(url,params,headers);
+        Request.Builder builder = buildHanderAndUrl(url, params, headers);
         Response response = okHttpClient.newCall(builder.build()).execute();
         return response;
     }
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url       url
      * @param mediaType Content-Type
-     * @param postBody 请求体(字符串)
+     * @param postBody  请求体(字符串)
      * @return String
      * @throws IOException
      */
@@ -106,17 +113,18 @@ public class HttpUtil {
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url       url
      * @param mediaType Content-Type
-     * @param postBody 请求体(字符串)
-     * @param headers header
+     * @param postBody  请求体(字符串)
+     * @param headers   header
      * @return String
      * @throws IOException
      */
     public static String httpPostString(String url, String mediaType, String postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
         MediaType mime = MediaType.parse(mediaType);
-        if (mime == null){
+        if (mime == null) {
             mLogger.info("======>Media type parse failed");
             return null;
         }
@@ -136,9 +144,10 @@ public class HttpUtil {
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url       url
      * @param mediaType Content-Type
-     * @param postBody 请求体(字节流)
+     * @param postBody  请求体(字节流)
      * @return String
      * @throws IOException
      */
@@ -148,17 +157,18 @@ public class HttpUtil {
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url       url
      * @param mediaType Content-Type
-     * @param postBody 请求体(字节流)
-     * @param headers header
+     * @param postBody  请求体(字节流)
+     * @param headers   header
      * @return String
      * @throws IOException
      */
     public static String httpPostStream(String url, String mediaType, byte[] postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
         MediaType mime = MediaType.parse(mediaType);
-        if (mime == null){
+        if (mime == null) {
             mLogger.info("======>Media type parse failed");
             return null;
         }
@@ -178,9 +188,10 @@ public class HttpUtil {
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url       url
      * @param mediaType Content-Type
-     * @param file 请求体(文件)
+     * @param file      请求体(文件)
      * @return String
      * @throws IOException
      */
@@ -190,17 +201,18 @@ public class HttpUtil {
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url       url
      * @param mediaType Content-Type
-     * @param file 请求体(文件)
-     * @param headers header
+     * @param file      请求体(文件)
+     * @param headers   header
      * @return String
      * @throws IOException
      */
     public static String httpPostFile(String url, String mediaType, File file, Map<String, String> params, Map<String, String> headers) throws
             IOException {
         MediaType mime = MediaType.parse(mediaType);
-        if (mime == null){
+        if (mime == null) {
             mLogger.info("======>Media type parse failed");
             return null;
         }
@@ -220,7 +232,8 @@ public class HttpUtil {
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url      url
      * @param formData 请求体(表单)
      * @return String
      * @throws IOException
@@ -231,9 +244,10 @@ public class HttpUtil {
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url      url
      * @param formData 请求体(表单)
-     * @param headers header
+     * @param headers  header
      * @return String
      * @throws IOException
      */
@@ -244,7 +258,7 @@ public class HttpUtil {
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
         //Post body
         FormBody.Builder formBodyBuilder = new FormBody.Builder();
-        if (formData != null && formData.size() > 0){
+        if (formData != null && formData.size() > 0) {
             for (Map.Entry<String, String> entry : formData.entrySet()) {
                 formBodyBuilder.add(entry.getKey(), entry.getValue());
             }
@@ -261,7 +275,8 @@ public class HttpUtil {
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url      url
      * @param postBody 请求体(多请求块)
      *                 通过MultipartBody.Builder的addFormDataPart构造请求体
      * @return String
@@ -273,10 +288,11 @@ public class HttpUtil {
 
     /**
      * HTTP 同步POST请求
-     * @param url url
+     *
+     * @param url      url
      * @param postBody 请求体(多请求块)
      *                 通过MultipartBody.Builder的addFormDataPart构造请求体
-     * @param headers header
+     * @param headers  header
      * @return String
      * @throws IOException
      */
@@ -298,14 +314,14 @@ public class HttpUtil {
     private static Request.Builder buildHanderAndUrl(String url, Map<String, String> params, Map<String, String> headers) {
         //Header
         Request.Builder builder = new Request.Builder();
-        if (headers != null && headers.size()>0){
+        if (headers != null && headers.size() > 0) {
             for (Map.Entry<String, String> entry : headers.entrySet()) {
                 builder.addHeader(entry.getKey(), entry.getValue());
             }
         }
         //URL
         StringBuilder urlBuilder = new StringBuilder(url);
-        if (params != null && params.size() > 0){
+        if (params != null && params.size() > 0) {
             urlBuilder.append("?");
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 urlBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");

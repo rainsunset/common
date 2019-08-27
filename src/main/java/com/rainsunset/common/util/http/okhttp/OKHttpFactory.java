@@ -69,6 +69,7 @@ public enum OKHttpFactory {
             throw new RuntimeException("OKHttpClient initialization failed");
         }
     }
+
     public OkHttpClient getOkHttpClient() {
         return mOkHttpClient;
     }

@@ -11,11 +11,11 @@ package com.rainsunset.common.bean;
  * @Company rainsunset
  * @CreateDate: 2019.04.04
  */
-public class GlobalErrorInfoException extends RuntimeException{
+public class GlobalErrorInfoException extends RuntimeException {
 
     private ErrorInfoInterface errorInfo;
 
-    public GlobalErrorInfoException (ErrorInfoInterface errorInfo) {
+    public GlobalErrorInfoException(ErrorInfoInterface errorInfo) {
         this.errorInfo = errorInfo;
     }
 

@@ -4,7 +4,7 @@
  */
 package com.rainsunset.common.bean;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import java.io.Serializable;
 
 /**
  * @param <T> the type parameter
@@ -14,19 +14,26 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @CreateDate: 2019.04.04
  * @Version : 1.0
  */
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ResponseResult<T> {
+public class ResponseResult<T> implements Serializable {
 
-    /**业务成功/失败*/
+    /**
+     * 业务成功/失败
+     */
     private boolean success;
 
-    /** message */
+    /**
+     * message
+     */
     private String message;
 
-    /**业务返回对象*/
+    /**
+     * 业务返回对象
+     */
     private T data;
 
-    /**错误码*/
+    /**
+     * 错误码
+     */
     private String errorcode;
 
     public boolean isSuccess() {
