@@ -218,7 +218,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <project.release.version>1.0.0-SNAPSHOTS</project.release.version>
+                <project.release.version>1.0.0-SNAPSHOT</project.release.version>
                 <gpg.executable>gpg</gpg.executable>
                 <gpg.useagent>true</gpg.useagent>
                 <gpg.passphrase>myPassphrase</gpg.passphrase>
