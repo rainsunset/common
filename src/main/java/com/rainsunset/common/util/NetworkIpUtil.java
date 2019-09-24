@@ -8,11 +8,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * @Description: 网络相关工具类
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019 /4/9 18:00
- * @Version : 1.0
+ * @description: 网络相关工具类
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019 /4/9 18:00
+ * @version : 1.0
  * @ClassName NetworkIpUtil
  */
 public class NetworkIpUtil {

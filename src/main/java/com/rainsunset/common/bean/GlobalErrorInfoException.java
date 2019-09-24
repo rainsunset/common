@@ -1,11 +1,11 @@
 package com.rainsunset.common.bean;
 
 /**
- * @Description: 全局异常封装类
- * @Author: ligw
- * @Company rainsunset
- * @CreateDate: 2019.04.04
- * @Version : 1.0
+ * @description: 全局异常封装类
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.04.04
+ * @version : 1.0
  */
 public class GlobalErrorInfoException extends RuntimeException {
 

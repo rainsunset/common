@@ -2,10 +2,10 @@ package com.rainsunset.common.util;
 
 /**
  * @ClassName PageHelper
- * @Description: 分页参数处理
- * @Author: 李刚伟
- * @Company rainsunset
- * @CreateDate: 2019/4/16 19:43
+ * @description: 分页参数处理
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019/4/16 19:43
  */
 public class PageHelper {
 

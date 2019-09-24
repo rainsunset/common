@@ -1,10 +1,10 @@
 package com.rainsunset.common.util.http.okhttp;
 
 /**
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.09.24
- * @Version : 1.0
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.09.24
+ * @version : 1.0
  */
 public class OKHttpConfig {
     //Timeout

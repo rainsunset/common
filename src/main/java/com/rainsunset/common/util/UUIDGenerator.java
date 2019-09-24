@@ -3,11 +3,11 @@ package com.rainsunset.common.util;
 import java.util.UUID;
 
 /**
- * @Description: TODO
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.05.29
- * @Version : 1.0
+ * @description: TODO
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.05.29
+ * @version : 1.0
  */
 public class UUIDGenerator {
 

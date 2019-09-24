@@ -11,18 +11,29 @@ import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.09.24
- * @Version : 1.0
+ * @description: TODO
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.09.24
+ * @version : 1.0
  */
 public final class LoggingInterceptor implements Interceptor {
+    /**
+     * UTF8
+     */
     private static final Charset UTF8 = Charset.forName("UTF-8");
+    /**
+     * Level
+     */
     private volatile Level level = Level.NONE;
 
     /**
      * Returns true if the body in question probably contains human readable text. Uses a small sample
      * of code points to detect unicode control characters commonly used in binary file signatures.
+     *
+     * @param buffer the buffer
+     * @return the boolean
+     * @author : ligangwei / 2019-09-24
      */
     static boolean isPlaintext(Buffer buffer) {
         try {
@@ -44,12 +55,22 @@ public final class LoggingInterceptor implements Interceptor {
         }
     }
 
+    /**
+     * Get level level.
+     *
+     * @return the level
+     * @author : ligangwei / 2019-09-24
+     */
     public Level getLevel() {
         return level;
     }
 
     /**
      * Change the level at which this interceptor logs.
+     *
+     * @param level the level
+     * @return the level
+     * @author : ligangwei / 2019-09-24
      */
     @SuppressWarnings("AliControlFlowStatementWithoutBraces")
     public LoggingInterceptor setLevel(Level level) {
@@ -186,11 +207,25 @@ public final class LoggingInterceptor implements Interceptor {
         return response;
     }
 
+    /**
+     * Body encoded boolean.
+     *
+     * @param headers the headers
+     * @return the boolean
+     * @author : ligangwei / 2019-09-24
+     */
     private boolean bodyEncoded(Headers headers) {
         String contentEncoding = headers.get("Content-Encoding");
         return contentEncoding != null && !"identity".equalsIgnoreCase(contentEncoding);
     }
 
+    /**
+     * @description: TODO
+     * @author: ligangwei
+     * @company CMBI
+     * @date: 2019.09.24
+     * @version : 1.0
+     */
     public enum Level {
         /**
          * No logs.
@@ -204,7 +239,7 @@ public final class LoggingInterceptor implements Interceptor {
          * --> POST /greeting http/1.1 (3-byte body)
          *
          * <-- 200 OK (22ms, 6-byte body)
-         * }</pre>
+         * }*</pre>
          */
         BASIC,
         /**
@@ -222,7 +257,7 @@ public final class LoggingInterceptor implements Interceptor {
          * Content-Type: plain/text
          * Content-Length: 6
          * <-- END HTTP
-         * }</pre>
+         * }*</pre>
          */
         HEADERS,
         /**
@@ -244,7 +279,7 @@ public final class LoggingInterceptor implements Interceptor {
          *
          * Hello!
          * <-- END HTTP
-         * }</pre>
+         * }*</pre>
          */
         BODY
     }

@@ -8,11 +8,11 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * @Description: 时间格式化及解析工具类
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.04.09
- * @Version : 1.0
+ * @description: 时间格式化及解析工具类
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.04.09
+ * @version : 1.0
  */
 public class DateUtil {
 

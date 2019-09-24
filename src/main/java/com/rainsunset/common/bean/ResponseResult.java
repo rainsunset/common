@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 /**
  * @param <T> the type parameter
- * @Description: API标准返回对象
- * @Author: ligw
- * @Company rainsunset
- * @CreateDate: 2019.04.04
- * @Version : 1.0
+ * @description: API标准返回对象
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.04.04
+ * @version : 1.0
  */
 public class ResponseResult<T> implements Serializable {
 

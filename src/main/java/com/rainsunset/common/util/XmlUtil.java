@@ -15,11 +15,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * @Description: XML与Java对象互相转化工具
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.03.27
- * @Version : 1.0
+ * @description: XML与Java对象互相转化工具
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.03.27
+ * @version : 1.0
  */
 public class XmlUtil {
     //region 解析XML

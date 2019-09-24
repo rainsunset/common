@@ -7,11 +7,11 @@ import com.google.gson.JsonElement;
 import java.lang.reflect.Type;
 
 /**
- * @Description: Java Object <==> Gson String
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.05.29
- * @Version : 1.0
+ * @description: Java Object <==> Gson String
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.05.29
+ * @version : 1.0
  */
 public class GsonUtil {
     /**

@@ -22,11 +22,11 @@ import java.util.*;
 
 /**
  * @param <E> the type parameter
- * @Description: Excel导出
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.09.24
- * @Version : 1.0
+ * @description: Excel导出
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.09.24
+ * @version : 1.0
  */
 public class ExcelUtils<E> {
     /**

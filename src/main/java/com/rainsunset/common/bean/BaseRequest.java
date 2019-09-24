@@ -3,11 +3,11 @@ package com.rainsunset.common.bean;
 import java.io.Serializable;
 
 /**
- * @Description: 基础请求参数
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.09.24
- * @Version : 1.0
+ * @description: 基础请求参数
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.09.24
+ * @version : 1.0
  */
 public class BaseRequest implements Serializable {
     /**

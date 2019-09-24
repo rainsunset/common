@@ -12,11 +12,11 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * @Description: 验证码生成
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.05.29
- * @Version : 1.0
+ * @description: 验证码生成
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.05.29
+ * @version : 1.0
  */
 public class VerifyCodeUtils {
 

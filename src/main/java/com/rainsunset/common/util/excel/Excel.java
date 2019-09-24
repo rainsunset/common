@@ -7,11 +7,11 @@ import java.lang.annotation.Target;
 
 /**
  * @author ligangwei  Excel注解，用以生成Excel表格文件
- * @Description: TODO
- * @Author: ligangwei
- * @Company CMBI
- * @CreateDate: 2019.09.24
- * @Version : 1.0
+ * @description: TODO
+ * @author: ligangwei
+ * @company CMBI
+ * @date: 2019.09.24
+ * @version : 1.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.TYPE})

@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Description: Excel数据导入导出格式化<br>  举例:<br> 数据导出， {lock,{0:正常，1:锁定}}<br> 数据导入,{lock,{正常:0，锁定:1}}
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.04.09
- * @Version : 1.0
+ * @description: Excel数据导入导出格式化<br>  举例:<br> 数据导出， {lock,{0:正常，1:锁定}}<br> 数据导入,{lock,{正常:0，锁定:1}}
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.04.09
+ * @version : 1.0
  */
 public class ExcelDataFormatter {
 

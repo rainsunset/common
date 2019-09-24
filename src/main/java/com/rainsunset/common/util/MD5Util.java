@@ -7,11 +7,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @Description: MD5加密解密工具类
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.05.29
- * @Version : 1.0
+ * @description: MD5加密解密工具类
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.05.29
+ * @version : 1.0
  */
 public class MD5Util {
 

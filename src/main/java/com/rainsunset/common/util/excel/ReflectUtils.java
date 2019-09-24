@@ -8,11 +8,11 @@ import java.util.Date;
 
 
 /**
- * @Description: 反射工具类. 提供调用getter/setter方法, 访问私有变量, 调用私有方法, 获取泛型类型Class, 被AOP过的真实类等工具函数.
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.09.24
- * @Version : 1.0
+ * @description: 反射工具类. 提供调用getter/setter方法, 访问私有变量, 调用私有方法, 获取泛型类型Class, 被AOP过的真实类等工具函数.
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.09.24
+ * @version : 1.0
  */
 public class ReflectUtils {
 

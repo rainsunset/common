@@ -18,10 +18,10 @@ import static com.rainsunset.common.util.http.okhttp.interceptor.LoggingIntercep
 
 /**
  *
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.09.24
- * @Version : 1.0
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.09.24
+ * @version : 1.0
  */
 public enum OKHttpFactory {
     /** 实例 */

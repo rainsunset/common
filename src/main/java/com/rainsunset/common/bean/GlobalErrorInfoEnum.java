@@ -1,11 +1,11 @@
 package com.rainsunset.common.bean;
 
 /**
- * @Description: 全局异常枚举类
- * @Author: ligw
- * @Company rainsunset
- * @CreateDate: 2019.04.04
- * @Version : 1.0
+ * @description: 全局异常枚举类
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.04.04
+ * @version : 1.0
  */
 public enum GlobalErrorInfoEnum implements ErrorInfoInterface {
 

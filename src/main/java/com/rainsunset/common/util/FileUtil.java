@@ -8,13 +8,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * @author ligw
- * @version $Id FileTypeUtil.java, v 0.1 2017-10-09 18:28 ligw Exp $$
- * @Description: 文件类型判定工具类
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.05.29
- * @Version : 1.0
+ * @author ligangwei
+ * @version $Id FileTypeUtil.java, v 0.1 2017-10-09 18:28 ligangwei Exp $$
+ * @description: 文件类型判定工具类
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.05.29
+ * @version : 1.0
  */
 public class FileUtil {
 

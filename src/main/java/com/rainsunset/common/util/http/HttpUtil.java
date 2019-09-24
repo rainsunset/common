@@ -11,13 +11,16 @@ import java.io.InputStream;
 import java.util.Map;
 
 /**
- * @Description: http连接工具类
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.03.27
- * @Version : 1.0
+ * @description: http连接工具类
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.03.27
+ * @version : 1.0
  */
 public class HttpUtil {
+    /**
+     * mLogger
+     */
     private final static Logger mLogger = LoggerFactory.getLogger(HttpUtil.class);
 
     //region 同步请求
@@ -26,8 +29,9 @@ public class HttpUtil {
      * HTTP 同步GET请求
      *
      * @param url url
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpGetString(String url) throws IOException {
         return httpGetString(url, null, null);
@@ -39,8 +43,9 @@ public class HttpUtil {
      * @param url     url
      * @param headers header
      * @param params  请求参数
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpGetString(String url, Map<String, String> headers, Map<String, String> params) throws
             IOException {
@@ -55,8 +60,9 @@ public class HttpUtil {
      * HTTP 同步GET请求
      *
      * @param url url
-     * @return inputStream
-     * @throws IOException
+     * @return inputStream input stream
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static InputStream httpGetInputStream(String url) throws IOException {
         return httpGetInputStream(url, null, null);
@@ -68,8 +74,9 @@ public class HttpUtil {
      * @param url     url
      * @param headers header
      * @param params  请求参数
-     * @return inputStream
-     * @throws IOException
+     * @return inputStream input stream
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static InputStream httpGetInputStream(String url, Map<String, String> headers, Map<String, String> params) throws
             IOException {
@@ -86,8 +93,9 @@ public class HttpUtil {
      * @param url     url
      * @param headers header
      * @param params  请求参数
-     * @return response
-     * @throws IOException
+     * @return response response
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static Response httpGetResponse(String url, Map<String, String> headers, Map<String, String> params) throws
             IOException {
@@ -104,8 +112,9 @@ public class HttpUtil {
      * @param url       url
      * @param mediaType Content-Type
      * @param postBody  请求体(字符串)
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostString(String url, String mediaType, String postBody) throws IOException {
         return httpPostString(url, mediaType, postBody, null, null);
@@ -117,9 +126,11 @@ public class HttpUtil {
      * @param url       url
      * @param mediaType Content-Type
      * @param postBody  请求体(字符串)
+     * @param params    the params
      * @param headers   header
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostString(String url, String mediaType, String postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
@@ -148,8 +159,9 @@ public class HttpUtil {
      * @param url       url
      * @param mediaType Content-Type
      * @param postBody  请求体(字节流)
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostStream(String url, String mediaType, byte[] postBody) throws IOException {
         return httpPostStream(url, mediaType, postBody, null, null);
@@ -161,9 +173,11 @@ public class HttpUtil {
      * @param url       url
      * @param mediaType Content-Type
      * @param postBody  请求体(字节流)
+     * @param params    the params
      * @param headers   header
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostStream(String url, String mediaType, byte[] postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
@@ -192,8 +206,9 @@ public class HttpUtil {
      * @param url       url
      * @param mediaType Content-Type
      * @param file      请求体(文件)
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostFile(String url, String mediaType, File file) throws IOException {
         return httpPostFile(url, mediaType, file, null, null);
@@ -205,9 +220,11 @@ public class HttpUtil {
      * @param url       url
      * @param mediaType Content-Type
      * @param file      请求体(文件)
+     * @param params    the params
      * @param headers   header
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostFile(String url, String mediaType, File file, Map<String, String> params, Map<String, String> headers) throws
             IOException {
@@ -235,8 +252,9 @@ public class HttpUtil {
      *
      * @param url      url
      * @param formData 请求体(表单)
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostForm(String url, Map<String, String> formData) throws IOException {
         return httpPostForm(url, formData, null, null);
@@ -247,9 +265,11 @@ public class HttpUtil {
      *
      * @param url      url
      * @param formData 请求体(表单)
+     * @param params   the params
      * @param headers  header
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostForm(String url, Map<String, String> formData, Map<String, String> params, Map<String, String> headers) throws
             IOException {
@@ -277,10 +297,10 @@ public class HttpUtil {
      * HTTP 同步POST请求
      *
      * @param url      url
-     * @param postBody 请求体(多请求块)
-     *                 通过MultipartBody.Builder的addFormDataPart构造请求体
-     * @return String
-     * @throws IOException
+     * @param postBody 请求体(多请求块)                 通过MultipartBody.Builder的addFormDataPart构造请求体
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostMultiPart(String url, MultipartBody postBody) throws IOException {
         return httpPostMultiPart(url, postBody, null, null);
@@ -290,11 +310,12 @@ public class HttpUtil {
      * HTTP 同步POST请求
      *
      * @param url      url
-     * @param postBody 请求体(多请求块)
-     *                 通过MultipartBody.Builder的addFormDataPart构造请求体
+     * @param postBody 请求体(多请求块)                 通过MultipartBody.Builder的addFormDataPart构造请求体
+     * @param params   the params
      * @param headers  header
-     * @return String
-     * @throws IOException
+     * @return String string
+     * @throws IOException the io exception
+     * @author : ligangwei / 2019-09-24
      */
     public static String httpPostMultiPart(String url, MultipartBody postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
@@ -311,6 +332,15 @@ public class HttpUtil {
         return null;
     }
 
+    /**
+     * Build hander and url request . builder.
+     *
+     * @param url     the url
+     * @param params  the params
+     * @param headers the headers
+     * @return the request . builder
+     * @author : ligangwei / 2019-09-24
+     */
     private static Request.Builder buildHanderAndUrl(String url, Map<String, String> params, Map<String, String> headers) {
         //Header
         Request.Builder builder = new Request.Builder();

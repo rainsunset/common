@@ -6,18 +6,18 @@ import java.util.List;
 
 /**
  * @param <T> the type parameter
- * @Description: 分页返回体
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.04.16
- * @Version : 1.0
+ * @description: 分页返回体
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.04.16
+ * @version : 1.0
  */
 public class PageInfo<T> implements Serializable {
 
     /**
-     * serialVersionUID
+     * serialversionUID
      */
-    private static final long serialVersionUID = 5689097937777375052L;
+    private static final long serialversionUID = 5689097937777375052L;
     /**
      * 总页数
      */

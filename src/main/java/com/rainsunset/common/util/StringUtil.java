@@ -5,11 +5,11 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 
 /**
- * @Description: 字符串到基础对象的严格转化
- * @Author: 李刚伟
- * @Company rainsunset
- * @CreateDate: 2019 /4/19 0:49
- * @Version : 1.0
+ * @description: 字符串到基础对象的严格转化
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019 /4/19 0:49
+ * @version : 1.0
  */
 public class StringUtil {
 

@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description: SHA1 安全加密算法
- * @Author: ligangwei
- * @Company rainsunset
- * @CreateDate: 2019.05.29
- * @Version : 1.0
+ * @description: SHA1 安全加密算法
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2019.05.29
+ * @version : 1.0
  */
 public class Sha1 {
 
