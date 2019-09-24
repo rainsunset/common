@@ -24,6 +24,7 @@ import static com.rainsunset.common.util.http.okhttp.interceptor.LoggingIntercep
  * @Version : 1.0
  */
 public enum OKHttpFactory {
+    /** 实例 */
     INSTANCE();
 
     private final OkHttpClient mOkHttpClient;

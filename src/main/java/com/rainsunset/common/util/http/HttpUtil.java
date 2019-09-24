@@ -132,7 +132,7 @@ public class HttpUtil {
         //Header And Url
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
         //Post body
-        RequestBody requestBody = RequestBody.create(mime, postBody);
+        RequestBody requestBody = RequestBody.create(postBody.getBytes(),mime);
         builder.post(requestBody);
 
         Response response = okHttpClient.newCall(builder.build()).execute();
@@ -176,7 +176,7 @@ public class HttpUtil {
         //Header And Url
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
         //Post body
-        RequestBody requestBody = RequestBody.create(mime, postBody);
+        RequestBody requestBody = RequestBody.create(postBody,mime);
         builder.post(requestBody);
 
         Response response = okHttpClient.newCall(builder.build()).execute();
@@ -220,7 +220,7 @@ public class HttpUtil {
         //Header And Url
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
         //Post body
-        RequestBody requestBody = RequestBody.create(mime, file);
+        RequestBody requestBody = RequestBody.create(file,mime);
         builder.post(requestBody);
 
         Response response = okHttpClient.newCall(builder.build()).execute();
