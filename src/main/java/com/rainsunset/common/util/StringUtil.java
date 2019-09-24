@@ -5,9 +5,7 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 
 /**
- * @ClassName StringUtil
  * @Description: 字符串到基础对象的严格转化
- * 应对与php对接字符问题
  * @Author: 李刚伟
  * @Company rainsunset
  * @CreateDate: 2019/4/19 0:49

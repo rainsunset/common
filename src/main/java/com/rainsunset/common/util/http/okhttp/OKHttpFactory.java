@@ -15,7 +15,11 @@ import static com.rainsunset.common.util.http.okhttp.OKHttpConfig.*;
 import static com.rainsunset.common.util.http.okhttp.interceptor.LoggingInterceptor.Level.NONE;
 
 /**
- * Initialize okhttpclient and provide a singleton instance object
+ *
+ * @Author: ligangwei
+ * @Company rainsunset
+ * @CreateDate: 2019.09.24
+ * @Version : 1.0
  */
 public enum OKHttpFactory {
     INSTANCE();

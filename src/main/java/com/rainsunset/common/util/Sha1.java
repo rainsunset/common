@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description: TODO
+ * @Description: SHA1 安全加密算法
  * @Author: ligangwei
  * @Company rainsunset
  * @CreateDate: 2019.05.29

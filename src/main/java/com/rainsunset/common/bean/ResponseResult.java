@@ -1,13 +1,8 @@
-/**
- * Company
- * Copyright (C) 2004-2018 All Rights Reserved.
- */
 package com.rainsunset.common.bean;
 
 import java.io.Serializable;
 
 /**
- * @param <T> the type parameter
  * @Description: API标准返回对象
  * @Author: ligw
  * @Company rainsunset

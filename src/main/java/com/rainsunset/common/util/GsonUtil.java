@@ -118,6 +118,4 @@ public class GsonUtil {
             return false;
         }
     }
-
-
 }

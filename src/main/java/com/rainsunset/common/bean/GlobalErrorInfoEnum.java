@@ -1,15 +1,11 @@
-/**
- * Company
- * Copyright (C) 2004-2018 All Rights Reserved.
- */
 package com.rainsunset.common.bean;
 
 /**
- * @ClassName GlobalErrorInfoEnum
  * @Description: 全局异常枚举类
  * @Author: ligw
  * @Company rainsunset
  * @CreateDate: 2019.04.04
+ * @Version : 1.0
  */
 public enum GlobalErrorInfoEnum implements ErrorInfoInterface {
 

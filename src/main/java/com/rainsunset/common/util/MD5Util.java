@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @Description: TODO
+ * @Description: MD5加密解密工具类
  * @Author: ligangwei
  * @Company rainsunset
  * @CreateDate: 2019.05.29

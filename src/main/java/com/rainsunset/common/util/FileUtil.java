@@ -1,7 +1,3 @@
-/**
- * Company
- * Copyright (C) 2004-2017 All Rights Reserved.
- */
 package com.rainsunset.common.util;
 
 import java.io.*;
@@ -14,7 +10,7 @@ import java.util.Map;
 /**
  * @author ligw
  * @version $Id FileTypeUtil.java, v 0.1 2017-10-09 18:28 ligw Exp $$
- * @Description: TODO
+ * @Description: 文件类型判定工具类
  * @Author: ligangwei
  * @Company rainsunset
  * @CreateDate: 2019.05.29

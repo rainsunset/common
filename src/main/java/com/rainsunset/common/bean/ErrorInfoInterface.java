@@ -5,7 +5,6 @@
 package com.rainsunset.common.bean;
 
 /**
- * @ClassName ErrorInfoInterface
  * @Description: 异常枚举类通用接口
  * @Author: ligw
  * @Company rainsunset

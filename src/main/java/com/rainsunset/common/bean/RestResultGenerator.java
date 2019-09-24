@@ -1,11 +1,6 @@
-/**
- * Company
- * Copyright (C) 2004-2018 All Rights Reserved.
- */
 package com.rainsunset.common.bean;
 
 /**
- * @version $Id RestResultGenerator.java, v 0.1 2018-08-22 1:15 ligw Exp $$
  * @Description: 构造Response工具类
  * @Author: ligw
  * @Company rainsunsetr

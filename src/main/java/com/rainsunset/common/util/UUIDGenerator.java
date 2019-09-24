@@ -12,7 +12,7 @@ import java.util.UUID;
 public class UUIDGenerator {
 
     /**
-     * Get uuid string.
+     * 获取去-的UUID
      *
      * @return the string
      * @author : ligangwei / 2019-05-29
@@ -28,13 +28,12 @@ public class UUIDGenerator {
     }
 
     /**
-     * Get uuid string [ ].
+     * 获得指定数量的UUID
      *
      * @param number the number
      * @return the string [ ]
      * @author : ligangwei / 2019-05-29
      */
-// 获得指定数量的UUID
     public static String[] getUUID(int number) {
         if (number < 1) {
             return null;

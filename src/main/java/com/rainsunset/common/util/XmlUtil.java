@@ -14,7 +14,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 /**
  * @Description: XML与Java对象互相转化工具
  * @Author: ligangwei

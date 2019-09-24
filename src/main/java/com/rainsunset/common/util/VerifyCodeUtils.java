@@ -12,10 +12,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * <p><b>VerifyCodeUtils Description:</b> (验证码生成)</p>
- * <b>DATE:</b> 2016年6月2日 下午3:53:34
- *
- * @Description: TODO
+ * @Description: 验证码生成
  * @Author: ligangwei
  * @Company rainsunset
  * @CreateDate: 2019.05.29
@@ -24,9 +21,8 @@ import java.util.Random;
 public class VerifyCodeUtils {
 
     /**
-     * VERIFY_CODES
+     * 使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
      */
-//使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
     public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
     /**
      * random
