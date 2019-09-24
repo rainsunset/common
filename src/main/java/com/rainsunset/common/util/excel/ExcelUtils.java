@@ -29,14 +29,36 @@ import java.util.*;
  * @Version : 1.0
  */
 public class ExcelUtils<E> {
+    /**
+     * E
+     */
     private E e;
+    /**
+     * Sdf
+     */
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    /**
+     * Etimes
+     */
     private int etimes = 0;
 
+    /**
+     * Excel utils.
+     *
+     * @param e the e
+     */
     public ExcelUtils(E e) {
         this.e = e;
     }
 
+    /**
+     * Get e.
+     *
+     * @return the e
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @author : ligangwei / 2019-09-24
+     */
     @SuppressWarnings("unchecked")
     public E get() throws InstantiationException, IllegalAccessException {
         return (E) e.getClass().newInstance();
@@ -51,6 +73,7 @@ public class ExcelUtils<E> {
      * @param data      工作表数据
      * @throws FileNotFoundException 文件不存在异常
      * @throws IOException           IO异常
+     * @author : ligangwei / 2019-09-24
      */
     public static void writeToFile(String filePath, String[] sheetName, List<? extends Object[]> title, List<? extends List<? extends Object[]>> data) throws FileNotFoundException, IOException {
         // 创建并获取工作簿对象
@@ -73,9 +96,10 @@ public class ExcelUtils<E> {
      * @param sheetName 工作表名称的数组
      * @param title     每个工作表名称的数组集合
      * @param data      每个工作表数据的集合的集合
-     * @return Workbook工作簿
+     * @return Workbook工作簿 workbook
      * @throws FileNotFoundException 文件不存在异常
      * @throws IOException           IO异常
+     * @author : ligangwei / 2019-09-24
      */
     public static Workbook getWorkBook(String[] sheetName, List<? extends Object[]> title, List<? extends List<? extends Object[]>> data) throws FileNotFoundException, IOException {
 
@@ -159,11 +183,12 @@ public class ExcelUtils<E> {
     /**
      * 将数据写入到EXCEL文档
      *
+     * @param <T>      the type parameter
      * @param list     数据集合
-     * @param edf      数据格式化，比如有些数字代表的状态，像是0:女，1：男，或者0：正常，1：锁定，变成可读的文字
-     *                 该字段仅仅针对Boolean,Integer两种类型作处理
+     * @param edf      数据格式化，比如有些数字代表的状态，像是0:女，1：男，或者0：正常，1：锁定，变成可读的文字                 该字段仅仅针对Boolean,Integer两种类型作处理
      * @param filePath 文件路径
-     * @throws Exception
+     * @throws Exception the exception
+     * @author : ligangwei / 2019-09-24
      */
     public static <T> void writeToFile(List<T> list, ExcelDataFormatter edf, String filePath) throws Exception {
         // 创建并获取工作簿对象
@@ -174,6 +199,16 @@ public class ExcelUtils<E> {
         out.close();
     }
 
+    /**
+     * Write to file response.
+     *
+     * @param <T>      the type parameter
+     * @param list     the list
+     * @param edf      the edf
+     * @param response the response
+     * @throws Exception the exception
+     * @author : ligangwei / 2019-09-24
+     */
     public static <T> void writeToFileResponse(List<T> list, ExcelDataFormatter edf, HttpServletResponse response) throws Exception {
         // 创建并获取工作簿对象
         Workbook wb = getWorkBook(list, edf);
@@ -187,11 +222,13 @@ public class ExcelUtils<E> {
     /**
      * 将数据写入到EXCEL文档
      *
+     * @param <T>      the type parameter
      * @param list     数据集合
-     * @param edf      数据格式化，比如有些数字代表的状态，像是0:女，1：男，或者0：正常，1：锁定，变成可读的文字
-     *                 该字段仅仅针对Boolean,Integer两种类型作处理
-     * @param response
-     * @throws Exception
+     * @param edf      数据格式化，比如有些数字代表的状态，像是0:女，1：男，或者0：正常，1：锁定，变成可读的文字                 该字段仅仅针对Boolean,Integer两种类型作处理
+     * @param response the response
+     * @return the byte [ ]
+     * @throws Exception the exception
+     * @author : ligangwei / 2019-09-24
      */
     public static <T> byte[] writeToResponse(List<T> list, ExcelDataFormatter edf, HttpServletResponse response) throws Exception {
         // 创建并获取工作簿对象
@@ -205,9 +242,12 @@ public class ExcelUtils<E> {
     /**
      * 获得Workbook对象
      *
+     * @param <T>  the type parameter
      * @param list 数据集合
-     * @return Workbook
-     * @throws Exception
+     * @param edf  the edf
+     * @return Workbook workbook
+     * @throws Exception the exception
+     * @author : ligangwei / 2019-09-24
      */
     public static <T> Workbook getWorkBook(List<T> list, ExcelDataFormatter edf) throws Exception {
         // 创建工作簿
@@ -448,6 +488,13 @@ public class ExcelUtils<E> {
         return wb;
     }
 
+    /**
+     * Is valid date boolean.
+     *
+     * @param str the str
+     * @return the boolean
+     * @author : ligangwei / 2019-09-24
+     */
     public static boolean isValidDate(String str) {
         boolean convertSuccess = true;
         // 指定日期格式为四位年/两位月份/两位日期，注意yyyy/MM/dd区分大小写；
@@ -469,8 +516,9 @@ public class ExcelUtils<E> {
      *
      * @param edf  数据格式化
      * @param file Excel文件，支持xlsx后缀，xls的没写，基本一样
-     * @return
-     * @throws Exception
+     * @return list
+     * @throws Exception the exception
+     * @author : ligangwei / 2019-09-24
      */
     public List<E> readFromFile(ExcelDataFormatter edf, File file) throws Exception {
         Field[] fields = ReflectUtils.getClassFieldsAndSuperClassFields(e.getClass());
@@ -533,6 +581,15 @@ public class ExcelUtils<E> {
         return list;
     }
 
+    /**
+     * Read from file list.
+     *
+     * @param edf the edf
+     * @param is  the is
+     * @return the list
+     * @throws Exception the exception
+     * @author : ligangwei / 2019-09-24
+     */
     public List<E> readFromFile(ExcelDataFormatter edf, FileInputStream is) throws Exception {
         Field[] fields = ReflectUtils.getClassFieldsAndSuperClassFields(e.getClass());
 
@@ -602,6 +659,16 @@ public class ExcelUtils<E> {
     }
 
 
+    /**
+     * Read from file sheet name list.
+     *
+     * @param edf       the edf
+     * @param is        the is
+     * @param sheetName the sheet name
+     * @return the list
+     * @throws Exception the exception
+     * @author : ligangwei / 2019-09-24
+     */
     public List<E> readFromFile_sheetName(ExcelDataFormatter edf, FileInputStream is, String sheetName) throws Exception {
         Field[] fields = ReflectUtils.getClassFieldsAndSuperClassFields(e.getClass());
 
@@ -672,6 +739,17 @@ public class ExcelUtils<E> {
     }
 
 
+    /**
+     * Read from file sheet name list.
+     *
+     * @param edf       the edf
+     * @param wb        the wb
+     * @param sheetName the sheet name
+     * @param sdf       the sdf
+     * @return the list
+     * @throws Exception the exception
+     * @author : ligangwei / 2019-09-24
+     */
     public List<E> readFromFile_sheetName(ExcelDataFormatter edf, Workbook wb, String sheetName, SimpleDateFormat sdf) throws Exception {
         this.sdf = sdf;
         Field[] fields = ReflectUtils.getClassFieldsAndSuperClassFields(e.getClass());
@@ -751,11 +829,14 @@ public class ExcelUtils<E> {
      * 使用各种方法，知道尝试到读到数据为止，然后根据Bean的数据类型，进行相应的转换<br>
      * 如果尝试完了（总共7次），还是不能得到数据，那么抛个异常出来，没办法了
      *
-     * @param key    当前单元格对应的Bean字段
-     * @param fields Bean所有的字段数组
-     * @param cell   单元格对象
-     * @param e
-     * @throws Exception
+     * @param key       当前单元格对应的Bean字段
+     * @param fields    Bean所有的字段数组
+     * @param cell      单元格对象
+     * @param e         the e
+     * @param edf       the edf
+     * @param evaluator the evaluator
+     * @throws Exception the exception
+     * @author : ligangwei / 2019-09-24
      */
     public void readCellContent(String key, Field[] fields, Cell cell, E e, ExcelDataFormatter edf, FormulaEvaluator evaluator) throws Exception {
 

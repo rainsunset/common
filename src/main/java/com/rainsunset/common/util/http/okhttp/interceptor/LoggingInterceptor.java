@@ -51,8 +51,11 @@ public final class LoggingInterceptor implements Interceptor {
     /**
      * Change the level at which this interceptor logs.
      */
+    @SuppressWarnings("AliControlFlowStatementWithoutBraces")
     public LoggingInterceptor setLevel(Level level) {
-        if (level == null) throw new NullPointerException("level == null. Use Level.NONE instead.");
+        if (level == null) {
+            throw new NullPointerException("level == null. Use Level.NONE instead.");
+        }
         this.level = level;
         return this;
     }
@@ -185,7 +188,7 @@ public final class LoggingInterceptor implements Interceptor {
 
     private boolean bodyEncoded(Headers headers) {
         String contentEncoding = headers.get("Content-Encoding");
-        return contentEncoding != null && !contentEncoding.equalsIgnoreCase("identity");
+        return contentEncoding != null && !"identity".equalsIgnoreCase(contentEncoding);
     }
 
     public enum Level {

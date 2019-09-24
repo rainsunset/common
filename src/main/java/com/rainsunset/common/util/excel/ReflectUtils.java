@@ -8,7 +8,7 @@ import java.util.Date;
 
 
 /**
- * @Description: 反射工具类.  提供调用getter/setter方法, 访问私有变量, 调用私有方法, 获取泛型类型Class, 被AOP过的真实类等工具函数.
+ * @Description: 反射工具类. 提供调用getter/setter方法, 访问私有变量, 调用私有方法, 获取泛型类型Class, 被AOP过的真实类等工具函数.
  * @Author: ligangwei
  * @Company rainsunset
  * @CreateDate: 2019.09.24
@@ -16,16 +16,30 @@ import java.util.Date;
  */
 public class ReflectUtils {
 
+    /**
+     * SETTER_PREFIX
+     */
     private static final String SETTER_PREFIX = "set";
 
+    /**
+     * GETTER_PREFIX
+     */
     private static final String GETTER_PREFIX = "get";
 
+    /**
+     * CGLIB_CLASS_SEPARATOR
+     */
     private static final String CGLIB_CLASS_SEPARATOR = "$$";
 
 
     /**
      * 调用Getter方法.
      * 支持多级，如：对象名.对象名.方法
+     *
+     * @param obj          the obj
+     * @param propertyName the property name
+     * @return the object
+     * @author : ligangwei / 2019-09-24
      */
     public static Object invokeGetter(Object obj, String propertyName) {
         Object object = obj;
@@ -39,6 +53,11 @@ public class ReflectUtils {
     /**
      * 调用Setter方法, 仅匹配方法名。
      * 支持多级，如：对象名.对象名.方法
+     *
+     * @param obj          the obj
+     * @param propertyName the property name
+     * @param value        the value
+     * @author : ligangwei / 2019-09-24
      */
     public static void invokeSetter(Object obj, String propertyName, Object value) {
         Object object = obj;
@@ -56,6 +75,11 @@ public class ReflectUtils {
 
     /**
      * 直接读取对象属性值, 无视private/protected修饰符, 不经过getter函数.
+     *
+     * @param obj       the obj
+     * @param fieldName the field name
+     * @return the object
+     * @author : ligangwei / 2019-09-24
      */
     public static Object getFieldValue(final Object obj, final String fieldName) {
         Field field = getAccessibleField(obj, fieldName);
@@ -75,6 +99,11 @@ public class ReflectUtils {
 
     /**
      * 直接设置对象属性值, 无视private/protected修饰符, 不经过setter函数.
+     *
+     * @param obj       the obj
+     * @param fieldName the field name
+     * @param value     the value
+     * @author : ligangwei / 2019-09-24
      */
     public static void setFieldValue(final Object obj, final String fieldName, final Object value) {
         Field field = getAccessibleField(obj, fieldName);
@@ -94,6 +123,13 @@ public class ReflectUtils {
      * 直接调用对象方法, 无视private/protected修饰符.
      * 用于一次性调用的情况，否则应使用getAccessibleMethod()函数获得Method后反复调用.
      * 同时匹配方法名+参数类型，
+     *
+     * @param obj            the obj
+     * @param methodName     the method name
+     * @param parameterTypes the parameter types
+     * @param args           the args
+     * @return the object
+     * @author : ligangwei / 2019-09-24
      */
     public static Object invokeMethod(final Object obj, final String methodName, final Class<?>[] parameterTypes,
                                       final Object[] args) {
@@ -113,6 +149,12 @@ public class ReflectUtils {
      * 直接调用对象方法, 无视private/protected修饰符，
      * 用于一次性调用的情况，否则应使用getAccessibleMethodByName()函数获得Method后反复调用.
      * 只匹配函数名，如果有多个同名函数调用第一个。
+     *
+     * @param obj        the obj
+     * @param methodName the method name
+     * @param args       the args
+     * @return the object
+     * @author : ligangwei / 2019-09-24
      */
     public static Object invokeMethodByName(final Object obj, final String methodName, final Object[] args) {
         Method method = getAccessibleMethodByName(obj, methodName);
@@ -131,6 +173,11 @@ public class ReflectUtils {
      * 循环向上转型, 获取对象的DeclaredField, 并强制设置为可访问.
      * <p>
      * 如向上转型到Object仍无法找到, 返回null.
+     *
+     * @param obj       the obj
+     * @param fieldName the field name
+     * @return the field
+     * @author : ligangwei / 2019-09-24
      */
     public static Field getAccessibleField(final Object obj, final String fieldName) {
         Assert.notNull(obj, "object can‘t be null");
@@ -149,6 +196,13 @@ public class ReflectUtils {
     }
 
 
+    /**
+     * Get class fields and super class fields field [ ].
+     *
+     * @param obj the obj
+     * @return the field [ ]
+     * @author : ligangwei / 2019-09-24
+     */
     public static Field[] getClassFieldsAndSuperClassFields(final Class<?> obj) {
         Assert.notNull(obj, "object can‘t be null");
 
@@ -189,6 +243,14 @@ public class ReflectUtils {
         return null;
     }
 
+    /**
+     * Concat object [ ].
+     *
+     * @param a the a
+     * @param b the b
+     * @return the object [ ]
+     * @author : ligangwei / 2019-09-24
+     */
     static Object[] concat(Object[] a, Object[] b) {
         Object[] c = new Object[a.length + b.length];
         System.arraycopy(a, 0, c, 0, a.length);
@@ -202,6 +264,12 @@ public class ReflectUtils {
      * 匹配函数名+参数类型。
      * <p>
      * 用于方法需要被多次调用的情况. 先使用本函数先取得Method,然后调用Method.invoke(Object obj, Object... args)
+     *
+     * @param obj            the obj
+     * @param methodName     the method name
+     * @param parameterTypes the parameter types
+     * @return the method
+     * @author : ligangwei / 2019-09-24
      */
     public static Method getAccessibleMethod(final Object obj, final String methodName,
                                              final Class<?>... parameterTypes) {
@@ -227,6 +295,11 @@ public class ReflectUtils {
      * 只匹配函数名。
      * <p>
      * 用于方法需要被多次调用的情况. 先使用本函数先取得Method,然后调用Method.invoke(Object obj, Object... args)
+     *
+     * @param obj        the obj
+     * @param methodName the method name
+     * @return the method
+     * @author : ligangwei / 2019-09-24
      */
     public static Method getAccessibleMethodByName(final Object obj, final String methodName) {
         Assert.notNull(obj, "object can‘t be null");
@@ -246,6 +319,9 @@ public class ReflectUtils {
 
     /**
      * 改变private/protected的方法为public，尽量不调用实际改动的语句，避免JDK的SecurityManager抱怨。
+     *
+     * @param method the method
+     * @author : ligangwei / 2019-09-24
      */
     public static void makeAccessible(Method method) {
         if ((!Modifier.isPublic(method.getModifiers()) || !Modifier.isPublic(method.getDeclaringClass().getModifiers()))
@@ -256,6 +332,9 @@ public class ReflectUtils {
 
     /**
      * 改变private/protected的成员变量为public，尽量不调用实际改动的语句，避免JDK的SecurityManager抱怨。
+     *
+     * @param field the field
+     * @author : ligangwei / 2019-09-24
      */
     public static void makeAccessible(Field field) {
         if ((!Modifier.isPublic(field.getModifiers()) || !Modifier.isPublic(field.getDeclaringClass().getModifiers()) || Modifier
@@ -270,10 +349,11 @@ public class ReflectUtils {
      * eg.
      * public UserDao extends HibernateDao<User>
      *
+     * @param <T>   the type parameter
      * @param clazz The class to introspect
      * @return the first generic declaration, or Object.class if cannot be determined
+     * @author : ligangwei / 2019-09-24
      */
-
     public static <T> Class<?> getClassGenricType(final Class<?> clazz) {
         return getClassGenricType(clazz, 0);
     }
@@ -287,6 +367,7 @@ public class ReflectUtils {
      * @param clazz clazz The class to introspect
      * @param index the Index of the generic ddeclaration,start from 0.
      * @return the index generic declaration, or Object.class if cannot be determined
+     * @author : ligangwei / 2019-09-24
      */
     public static Class<?> getClassGenricType(final Class<?> clazz, final int index) {
 
@@ -312,6 +393,13 @@ public class ReflectUtils {
         return (Class<?>) params[index];
     }
 
+    /**
+     * Get user class class.
+     *
+     * @param instance the instance
+     * @return the class
+     * @author : ligangwei / 2019-09-24
+     */
     public static Class<?> getUserClass(Object instance) {
         Assert.notNull(instance, "Instance must not be null");
         Class<?> clazz = instance.getClass();
@@ -327,6 +415,10 @@ public class ReflectUtils {
 
     /**
      * 将反射时的checked exception转换为unchecked exception.
+     *
+     * @param e the e
+     * @return the runtime exception
+     * @author : ligangwei / 2019-09-24
      */
     public static RuntimeException convertReflectionExceptionToUnchecked(Exception e) {
         if (e instanceof IllegalAccessException || e instanceof IllegalArgumentException
@@ -343,9 +435,11 @@ public class ReflectUtils {
     /**
      * 判断属性是否为日期类型
      *
+     * @param <T>       the type parameter
      * @param clazz     数据类型
      * @param fieldName 属性名
-     * @return 如果为日期类型返回true，否则返回false
+     * @return 如果为日期类型返回true ，否则返回false
+     * @author : ligangwei / 2019-09-24
      */
     public static <T> boolean isDateType(Class<T> clazz, String fieldName) {
         boolean flag = false;
@@ -362,9 +456,11 @@ public class ReflectUtils {
     /**
      * 根据类型将指定参数转换成对应的类型
      *
+     * @param <T>   the type parameter
      * @param value 指定参数
      * @param type  指定类型
-     * @return 返回类型转换后的对象
+     * @return 返回类型转换后的对象 object
+     * @author : ligangwei / 2019-09-24
      */
     public static <T> Object parseValueWithType(String value, Class<?> type) {
         Object result = null;

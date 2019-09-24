@@ -4,10 +4,12 @@ import com.rainsunset.common.util.http.okhttp.interceptor.LoggingInterceptor;
 import okhttp3.OkHttpClient;
 
 import javax.net.ssl.*;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.*;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
 
@@ -58,6 +60,7 @@ public enum OKHttpFactory {
                     return true;
                 }
             };
+
             mOkHttpClient = new OkHttpClient.Builder()
                     .addNetworkInterceptor(loggingInterceptor)
                     //失败重连
@@ -65,7 +68,7 @@ public enum OKHttpFactory {
                     .connectTimeout(TIMEOUT_CONNECTION, TimeUnit.SECONDS)
                     .readTimeout(TIMEOUT_READ, TimeUnit.SECONDS)
                     .writeTimeout(TIMEOUT_WRITE, TimeUnit.SECONDS)
-                    .sslSocketFactory(sslSocketFactory)
+                    .sslSocketFactory(sslSocketFactory,(X509TrustManager)trustAllCerts[0])
                     .hostnameVerifier(hostnameVerifier)
                     .build();
         } catch (NoSuchAlgorithmException | NoSuchProviderException | KeyManagementException e) {

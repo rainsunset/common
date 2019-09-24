@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @param <T> the type parameter
  * @Description: 分页返回体
  * @Author: ligangwei
  * @Company rainsunset
@@ -13,6 +14,9 @@ import java.util.List;
  */
 public class PageInfo<T> implements Serializable {
 
+    /**
+     * serialVersionUID
+     */
     private static final long serialVersionUID = 5689097937777375052L;
     /**
      * 总页数
@@ -39,6 +43,15 @@ public class PageInfo<T> implements Serializable {
      */
     private List<T> rows;
 
+    /**
+     * Page info.
+     *
+     * @param totalPage   the total page
+     * @param currentPage the current page
+     * @param pageSize    the page size
+     * @param totalSize   the total size
+     * @param rows        the rows
+     */
     public PageInfo(int totalPage, int currentPage, Integer pageSize, Integer totalSize, List<T> rows) {
         this.totalPage = totalPage;
         this.currentPage = currentPage;
@@ -50,6 +63,12 @@ public class PageInfo<T> implements Serializable {
         this.rows = rows;
     }
 
+    /**
+     * Page info.
+     *
+     * @param pageHelper the page helper
+     * @param rows       the rows
+     */
     public PageInfo(PageHelper pageHelper, List<T> rows) {
         this.totalPage = pageHelper.getTotalPage();
         this.currentPage = pageHelper.getCurrentPage();
@@ -61,18 +80,42 @@ public class PageInfo<T> implements Serializable {
         this.rows = rows;
     }
 
+    /**
+     * Get total page integer.
+     *
+     * @return the integer
+     * @author : ligangwei / 2019-09-24
+     */
     public Integer getTotalPage() {
         return totalPage;
     }
 
+    /**
+     * Sets total page.
+     *
+     * @param totalPage the total page
+     * @author : ligangwei / 2019-09-24
+     */
     public void setTotalPage(int totalPage) {
         this.totalPage = totalPage;
     }
 
+    /**
+     * Get current page integer.
+     *
+     * @return the integer
+     * @author : ligangwei / 2019-09-24
+     */
     public Integer getCurrentPage() {
         return currentPage;
     }
 
+    /**
+     * Sets current page.
+     *
+     * @param currentPage the current page
+     * @author : ligangwei / 2019-09-24
+     */
     public void setCurrentPage(Integer currentPage) {
         if (null == currentPage || currentPage < 0) {
             currentPage = 1;
@@ -80,10 +123,22 @@ public class PageInfo<T> implements Serializable {
         this.currentPage = currentPage;
     }
 
+    /**
+     * Get page size integer.
+     *
+     * @return the integer
+     * @author : ligangwei / 2019-09-24
+     */
     public Integer getPageSize() {
         return pageSize;
     }
 
+    /**
+     * Sets page size.
+     *
+     * @param pageSize the page size
+     * @author : ligangwei / 2019-09-24
+     */
     public void setPageSize(Integer pageSize) {
         if (null == pageSize || pageSize < 0) {
             this.pageSize = 20;
@@ -91,18 +146,42 @@ public class PageInfo<T> implements Serializable {
         this.pageSize = (pageSize > 200) ? 200 : pageSize;
     }
 
+    /**
+     * Get total size integer.
+     *
+     * @return the integer
+     * @author : ligangwei / 2019-09-24
+     */
     public Integer getTotalSize() {
         return totalSize;
     }
 
+    /**
+     * Sets total size.
+     *
+     * @param totalSize the total size
+     * @author : ligangwei / 2019-09-24
+     */
     public void setTotalSize(Integer totalSize) {
         this.totalSize = totalSize;
     }
 
+    /**
+     * Get rows list.
+     *
+     * @return the list
+     * @author : ligangwei / 2019-09-24
+     */
     public List<T> getRows() {
         return rows;
     }
 
+    /**
+     * Sets rows.
+     *
+     * @param rows the rows
+     * @author : ligangwei / 2019-09-24
+     */
     public void setRows(List<T> rows) {
         this.rows = rows;
     }

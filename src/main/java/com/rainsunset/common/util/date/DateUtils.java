@@ -18,7 +18,7 @@ public final class DateUtils {
      *
      * @param date 日期
      * @param n    要增加的月数
-     * @return date
+     * @return date date
      * @author : ligangwei / 2019-05-29
      */
     public static Date addMonth(Date date, int n) {
@@ -33,7 +33,7 @@ public final class DateUtils {
      *
      * @param date 日期
      * @param n    要增加的天数
-     * @return date
+     * @return date date
      * @author : ligangwei / 2019-05-29
      */
     public static Date addDay(Date date, int n) {
@@ -48,7 +48,7 @@ public final class DateUtils {
      *
      * @param date    日期字符串
      * @param pattern 日期格式
-     * @return int
+     * @return int int
      * @throws ParseException the parse exception
      * @author : ligangwei / 2019-05-29
      */
@@ -65,7 +65,7 @@ public final class DateUtils {
      *
      * @param date    the date
      * @param pattern 日期格式
-     * @return string
+     * @return string string
      * @throws ParseException the parse exception
      * @author : ligangwei / 2019-05-29
      */
@@ -81,7 +81,7 @@ public final class DateUtils {
      *
      * @param date    the date
      * @param pattern 日期格式
-     * @return string
+     * @return string string
      * @throws ParseException the parse exception
      * @author : ligangwei / 2019-05-29
      */
@@ -95,7 +95,7 @@ public final class DateUtils {
     /**
      * 获得当前月--开始日期
      *
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getMinMonthDate() {
@@ -108,7 +108,7 @@ public final class DateUtils {
     /**
      * 获得当前月--结束日期
      *
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getMaxMonthDate() {
@@ -121,7 +121,7 @@ public final class DateUtils {
     /**
      * 获取前半年日期
      *
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getHalfYearAgo() {
@@ -134,7 +134,7 @@ public final class DateUtils {
     /**
      * 获取一年前日期
      *
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getOneYearAgo() {
@@ -147,7 +147,7 @@ public final class DateUtils {
     /**
      * 获取两年前日期
      *
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getTwoYearAgo() {
@@ -163,7 +163,7 @@ public final class DateUtils {
      * @param year  the year
      * @param month the month
      * @param day   the day
-     * @return date
+     * @return date date
      * @author : ligangwei / 2019-05-29
      */
     public static Date getTimes(int year, int month, int day) {
@@ -180,7 +180,7 @@ public final class DateUtils {
      * @param dateStart   the date start
      * @param dateEnd     the date end
      * @param compareDate the compare date
-     * @return boolean
+     * @return boolean boolean
      * @author : ligangwei / 2019-05-29
      */
     public static boolean jugdeInThisRange(Date dateStart, Date dateEnd, Date compareDate) {
@@ -195,7 +195,7 @@ public final class DateUtils {
      * 获取当前周的周一日期
      *
      * @param date the date
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getThisWeekMonday(Date date) {

@@ -20,25 +20,46 @@ public enum GlobalErrorInfoEnum implements ErrorInfoInterface {
      * 415，格式错
      * 500，内部错误
      */
-
-    //region
+//region
     // 全局系统异常 占用范围-999 -- 1000
     SUCCESS("0", "success"),
+    /**
+     * System error global error info enum.
+     */
     SYSTEM_ERROR("-1", "系统异常"),
 
     //endregion
 
     ;
 
+    /**
+     * Code
+     */
     private String code;
 
+    /**
+     * Message
+     */
     private String message;
 
+    /**
+     * Global error info enum.
+     *
+     * @param code    the code
+     * @param message the message
+     */
     GlobalErrorInfoEnum(String code, String message) {
         this.code = code;
         this.message = message;
     }
 
+    /**
+     * Get msg by code string.
+     *
+     * @param code the code
+     * @return the string
+     * @author : ligangwei / 2019-09-24
+     */
     public static String getMsgByCode(String code) {
         for (GlobalErrorInfoEnum responseInfo : GlobalErrorInfoEnum.values()) {
             if (code.equals(responseInfo.getCode())) {

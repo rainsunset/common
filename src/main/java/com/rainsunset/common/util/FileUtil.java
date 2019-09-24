@@ -111,7 +111,7 @@ public class FileUtil {
      * 得到上传文件的文件头
      *
      * @param src the src
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String bytesToHexString(byte[] src) {
@@ -134,7 +134,7 @@ public class FileUtil {
      * 根据制定文件的文件头判断其文件类型
      *
      * @param filePath the file path
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getFileTypeByPath(String filePath) {
@@ -167,7 +167,7 @@ public class FileUtil {
      * 判定网络连接指向的文件格式
      *
      * @param src the src
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getFileTypeByUrl(String src) {
@@ -226,7 +226,7 @@ public class FileUtil {
      * 依据文件的头10个字节判定文件类型
      *
      * @param data 长度必须为10
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getFileTypeByHeadByte(byte data[]) {
@@ -251,7 +251,7 @@ public class FileUtil {
      *
      * @param fileSize  单位byte
      * @param sizeLimit 单位：M 为null时不作限制
-     * @return boolean
+     * @return boolean boolean
      * @author : ligangwei / 2019-05-29
      */
     public static boolean isFileInSizeLimit(long fileSize, Integer sizeLimit) {

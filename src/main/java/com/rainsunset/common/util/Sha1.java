@@ -20,24 +20,24 @@ public class Sha1 {
     /**
      * SHA1 安全加密算法
      *
-     * @param maps 参数key-value map集合
+     * @param decrypt the decrypt
      * @return string string
      * @throws DigestException the digest exception
      * @author : ligangwei / 2019-05-29
      */
-    public static String SHA1(Map<String, Object> maps) throws DigestException {
-        //获取信息摘要 - 参数字典排序后字符串  
-        String decrypt = getOrderByLexicographic(maps);
+    public static String sha1(String decrypt) throws DigestException {
+        //获取信息摘要 - 参数字典排序后字符串
+        // String decrypt = getOrderByLexicographic(maps);
         //System.out.println("decrypt->>>>>"+decrypt);
         try {
-            //指定sha1算法  
+            //指定sha1算法
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.update(decrypt.getBytes());
-            //获取字节数组  
+            //获取字节数组
             byte messageDigest[] = digest.digest();
-            // Create Hex String  
+            // Create Hex String
             StringBuffer hexString = new StringBuffer();
-            // 字节数组转换为 十六进制 数  
+            // 字节数组转换为 十六进制 数
             for (int i = 0; i < messageDigest.length; i++) {
                 String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
                 if (shaHex.length() < 2) {
@@ -45,7 +45,7 @@ public class Sha1 {
                 }
                 hexString.append(shaHex);
             }
-            return hexString.toString().toUpperCase();
+            return hexString.toString();
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -56,24 +56,24 @@ public class Sha1 {
     /**
      * SHA1 安全加密算法
      *
-     * @param decrypt the decrypt
+     * @param maps 参数key-value map集合
      * @return string string
      * @throws DigestException the digest exception
      * @author : ligangwei / 2019-05-29
      */
-    public static String SHA1(String decrypt) throws DigestException {
-        //获取信息摘要 - 参数字典排序后字符串  
-        // String decrypt = getOrderByLexicographic(maps);
+    public static String sha1(Map<String, Object> maps) throws DigestException {
+        //获取信息摘要 - 参数字典排序后字符串
+        String decrypt = getOrderByLexicographic(maps);
         //System.out.println("decrypt->>>>>"+decrypt);
         try {
-            //指定sha1算法  
+            //指定sha1算法
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.update(decrypt.getBytes());
-            //获取字节数组  
+            //获取字节数组
             byte messageDigest[] = digest.digest();
-            // Create Hex String  
+            // Create Hex String
             StringBuffer hexString = new StringBuffer();
-            // 字节数组转换为 十六进制 数  
+            // 字节数组转换为 十六进制 数
             for (int i = 0; i < messageDigest.length; i++) {
                 String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
                 if (shaHex.length() < 2) {
@@ -81,7 +81,7 @@ public class Sha1 {
                 }
                 hexString.append(shaHex);
             }
-            return hexString.toString();
+            return hexString.toString().toUpperCase();
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

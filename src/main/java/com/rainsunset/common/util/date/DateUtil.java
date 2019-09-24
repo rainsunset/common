@@ -94,7 +94,7 @@ public class DateUtil {
      * 默认格式 yyyy-MM-dd HH:mm:ss
      *
      * @param date the date
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String format(Date date) {
@@ -104,7 +104,7 @@ public class DateUtil {
     /**
      * 现在时间 默认格式 yyyy-MM-dd HH:mm:ss
      *
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String formatNowDate() {
@@ -115,7 +115,7 @@ public class DateUtil {
      * 简写格式 yyyy-MM-dd
      *
      * @param date the date
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String formatShortDate(Date date) {
@@ -125,7 +125,7 @@ public class DateUtil {
     /**
      * 现在时间 简写格式 yyyy-MM-dd
      *
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String formatNowShortDate() {
@@ -149,7 +149,7 @@ public class DateUtil {
      * 默认格式 yyyy-MM-dd HH:mm:ss
      *
      * @param dateStr the date str
-     * @return date
+     * @return date date
      * @throws ParseException the parse exception
      * @author : ligangwei / 2019-05-29
      */
@@ -161,7 +161,7 @@ public class DateUtil {
      * 简写格式 yyyy-MM-dd
      *
      * @param dateStr the date str
-     * @return date
+     * @return date date
      * @throws ParseException the parse exception
      * @author : ligangwei / 2019-05-29
      */

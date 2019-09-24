@@ -34,7 +34,7 @@ public class VerifyCodeUtils {
      * 使用系统默认字符源生成验证码
      *
      * @param verifySize 验证码长度
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String generateVerifyCode(int verifySize) {
@@ -46,7 +46,7 @@ public class VerifyCodeUtils {
      *
      * @param verifySize 验证码长度
      * @param sources    验证码字符源
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String generateVerifyCode(int verifySize, String sources) {
@@ -69,7 +69,7 @@ public class VerifyCodeUtils {
      * @param h          the h
      * @param outputFile the output file
      * @param verifySize the verify size
-     * @return string
+     * @return string string
      * @throws IOException the io exception
      * @author : ligangwei / 2019-05-29
      */
@@ -86,7 +86,7 @@ public class VerifyCodeUtils {
      * @param h          the h
      * @param os         the os
      * @param verifySize the verify size
-     * @return string
+     * @return string string
      * @throws IOException the io exception
      * @author : ligangwei / 2019-05-29
      */

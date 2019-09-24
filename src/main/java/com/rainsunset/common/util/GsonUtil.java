@@ -71,8 +71,7 @@ public class GsonUtil {
      * @param json the json
      * @param type the type
      * @return the t
-     * @author : ligangwei / 2019-05-29
-     * exam : Integer[] intarray = GsonUtil.fromJson(intarraystr,new TypeToken<Integer[]>(){}.getType());
+     * @author : ligangwei / 2019-05-29 exam : Integer[] intarray = GsonUtil.fromJson(intarraystr,new TypeToken<Integer[]>(){}.getType());
      */
     public static <T> T fromJson(String json, Type type) {
         return nullableGson.fromJson(json, type);

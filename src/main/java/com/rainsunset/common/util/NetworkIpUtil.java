@@ -26,7 +26,7 @@ public class NetworkIpUtil {
      * 获取当前网络ip
      *
      * @param request the request
-     * @return string
+     * @return string string
      * @author : ligangwei / 2019-05-29
      */
     public static String getIpAddr(HttpServletRequest request) {
@@ -48,8 +48,8 @@ public class NetworkIpUtil {
         if (ipAddress == null || ipAddress.length() == 0
                 || "unknown".equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getRemoteAddr();
-            if (ipAddress.equals("127.0.0.1")
-                    || ipAddress.equals("0:0:0:0:0:0:0:1")) {
+            if ("127.0.0.1".equals(ipAddress)
+                    || "0:0:0:0:0:0:0:1".equals(ipAddress)) {
                 // 根据网卡取本机配置的IP
                 InetAddress inet = null;
                 try {

@@ -15,10 +15,22 @@ public class BaseRequest implements Serializable {
      */
     private String traceLogId;
 
+    /**
+     * Get trace log id string.
+     *
+     * @return the string
+     * @author : ligangwei / 2019-09-24
+     */
     public String getTraceLogId() {
         return traceLogId;
     }
 
+    /**
+     * Sets trace log id.
+     *
+     * @param traceLogId the trace log id
+     * @author : ligangwei / 2019-09-24
+     */
     public void setTraceLogId(String traceLogId) {
         this.traceLogId = traceLogId;
     }
