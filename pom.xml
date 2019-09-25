@@ -16,60 +16,60 @@
         <!--构建信息 (选配)-->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--依赖包版本-->
-        <okhttp-version>4.2.0</okhttp-version>
-        <dom4j-version>1.6</dom4j-version>
-        <slf4j-version>1.7.25</slf4j-version>
-        <apache.poi-version>3.14</apache.poi-version>
-        <gson.version>2.8.5</gson.version>
-        <springframework.spring-core-version>5.1.7.RELEASE</springframework.spring-core-version>
         <project.release.version>1.0.0-SNAPSHOT</project.release.version>
+        <!--依赖包版本-->
+        <okhttp.version>4.2.0</okhttp.version>
+        <dom4j.version>1.6</dom4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <apache.poi.version>3.14</apache.poi.version>
+        <gson.version>2.8.5</gson.version>
+        <spring-core.version>5.1.7.RELEASE</spring-core.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${springframework.spring-core-version}</version>
+            <version>${spring-core.version}</version>
         </dependency>
 
         <!--util>okhttp-->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>${okhttp-version}</version>
+            <version>${okhttp.version}</version>
         </dependency>
 
         <!--util>Dom4j-->
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>${dom4j-version}</version>
+            <version>${dom4j.version}</version>
         </dependency>
 
         <!--log-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j-version}</version>
-            <!--<scope>test</scope>-->
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!--region Excel -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>${apache.poi-version}</version>
+            <version>${apache.poi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
-            <version>${apache.poi-version}</version>
+            <version>${apache.poi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>${apache.poi-version}</version>
+            <version>${apache.poi.version}</version>
         </dependency>
         <!--  endregion Excel -->
 
@@ -82,9 +82,8 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>${javax.servlet-api.version}</version>
         </dependency>
-
     </dependencies>
 
     <licenses>
@@ -107,7 +106,6 @@
             <organization>sunshine</organization>
         </developer>
     </developers>
-
     <distributionManagement>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>
