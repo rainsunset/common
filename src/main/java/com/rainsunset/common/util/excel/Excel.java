@@ -6,10 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author ligangwei  Excel注解，用以生成Excel表格文件
- * @description: TODO
+ * @description: Excel注解，用以生成Excel表格文件
  * @author: ligangwei
- * @company CMBI
+ * @company rainsunset
  * @date: 2019.09.24
  * @version : 1.0
  */

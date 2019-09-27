@@ -222,7 +222,7 @@ public final class LoggingInterceptor implements Interceptor {
     /**
      * @description: TODO
      * @author: ligangwei
-     * @company CMBI
+     * @company rainsunset
      * @date: 2019.09.24
      * @version : 1.0
      */
