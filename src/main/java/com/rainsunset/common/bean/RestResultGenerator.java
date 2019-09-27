@@ -18,10 +18,7 @@ public class RestResultGenerator {
      * @author : ligangwei / 2019-09-24
      */
     public static <T> ResponseResult<T> genResult(T data) {
-        ResponseResult<T> result = new ResponseResult<T>();
-        result.setData(data);
-        result.setSuccess(true);
-        return result;
+        return new ResponseResult<T>(true, data, "", "");
     }
 
     /**
@@ -33,11 +30,19 @@ public class RestResultGenerator {
      * @author : ligangwei / 2019-09-24
      */
     public static <T> ResponseResult<T> genResult(ErrorInfoInterface errorInfo) {
-        ResponseResult<T> result = new ResponseResult<T>();
-        result.setSuccess(false);
-        result.setErrorCode(errorInfo.getCode());
-        result.setMessage(errorInfo.getMessage());
-        return result;
+        return new ResponseResult<T>(false, null, errorInfo.getMessage(), errorInfo.getCode());
+    }
+
+    /**
+     * Gen result response result.
+     *
+     * @param <T>                the type parameter
+     * @param errorInfoException the error info exception
+     * @return the response result
+     * @author : ligangwei / 2019-9-27 8:43:57
+     */
+    public static <T> ResponseResult<T> genResult(GlobalErrorInfoException errorInfoException) {
+        return new ResponseResult<T>(false, null, errorInfoException.getMessage(), errorInfoException.getCode());
     }
 
     /**
@@ -49,10 +54,7 @@ public class RestResultGenerator {
      * @author : ligangwei / 2019-09-24
      */
     public static <T> ResponseResult<T> genErrorResult(String msg) {
-        ResponseResult<T> result = new ResponseResult<T>();
-        result.setSuccess(false);
-        result.setMessage(msg);
-        return result;
+        return new ResponseResult<T>(false, null, "", msg);
     }
 
     /**
@@ -64,9 +66,6 @@ public class RestResultGenerator {
      * @author : ligangwei / 2019-09-24
      */
     public static <T> ResponseResult<T> genErrorResult(T data) {
-        ResponseResult<T> result = new ResponseResult<T>();
-        result.setSuccess(false);
-        result.setData(data);
-        return result;
+        return new ResponseResult<T>(false, data, "", "");
     }
 }

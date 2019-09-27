@@ -32,6 +32,15 @@ public class ResponseResult<T> implements Serializable {
      */
     private String errorCode;
 
+    public ResponseResult() {}
+
+    public ResponseResult(boolean success, T data, String message, String errorCode) {
+        this.success = success;
+        this.data = data;
+        this.message = message;
+        this.errorCode = errorCode;
+    }
+
     /**
      * Is success boolean.
      *
