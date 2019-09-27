@@ -12,7 +12,7 @@ public class GlobalErrorInfoException extends RuntimeException {
     /**
      * Error info
      */
-    private ErrorInfoInterface errorInfo;
+    private final String code;
 
     /**
      * Global error info exception.
@@ -20,7 +20,19 @@ public class GlobalErrorInfoException extends RuntimeException {
      * @param errorInfo the error info
      */
     public GlobalErrorInfoException(ErrorInfoInterface errorInfo) {
-        this.errorInfo = errorInfo;
+        super(errorInfo.getMessage());
+        this.code = errorInfo.getCode();
+    }
+
+    /**
+     * Global error info exception.
+     *
+     * @param errorInfo the error info
+     * @param message   the message
+     */
+    public GlobalErrorInfoException(ErrorInfoInterface errorInfo,String message) {
+        super(message);
+        this.code = errorInfo.getCode();
     }
 
     /**
@@ -29,18 +41,8 @@ public class GlobalErrorInfoException extends RuntimeException {
      * @return the error info interface
      * @author : ligangwei / 2019-09-24
      */
-    public ErrorInfoInterface getErrorInfo() {
-        return errorInfo;
-    }
-
-    /**
-     * Sets error info.
-     *
-     * @param errorInfo the error info
-     * @author : ligangwei / 2019-09-24
-     */
-    public void setErrorInfo(ErrorInfoInterface errorInfo) {
-        this.errorInfo = errorInfo;
+    public String getCode() {
+        return code;
     }
 
 }
