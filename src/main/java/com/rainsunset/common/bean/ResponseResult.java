@@ -18,19 +18,19 @@ public class ResponseResult<T> implements Serializable {
     private boolean success;
 
     /**
-     * message
-     */
-    private String message;
-
-    /**
      * 业务返回对象
      */
     private T data;
 
     /**
+     * message
+     */
+    private String message;
+
+    /**
      * 错误码
      */
-    private String errorcode;
+    private String errorCode;
 
     /**
      * Is success boolean.
@@ -98,8 +98,8 @@ public class ResponseResult<T> implements Serializable {
      * @return the string
      * @author : ligangwei / 2019-09-24
      */
-    public String getErrorcode() {
-        return errorcode;
+    public String getErrorCode() {
+        return errorCode;
     }
 
     /**
@@ -108,7 +108,7 @@ public class ResponseResult<T> implements Serializable {
      * @param errorcode the errorcode
      * @author : ligangwei / 2019-09-24
      */
-    public void setErrorcode(String errorcode) {
-        this.errorcode = errorcode;
+    public void setErrorCode(String errorcode) {
+        this.errorCode = errorcode;
     }
 }

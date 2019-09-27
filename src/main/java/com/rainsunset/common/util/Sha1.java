@@ -147,8 +147,6 @@ public class Sha1 {
                 }
             }
         }
-
-
         return paramStr.toString().substring(1);
     }
 

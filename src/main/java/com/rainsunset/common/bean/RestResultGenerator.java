@@ -21,7 +21,6 @@ public class RestResultGenerator {
         ResponseResult<T> result = new ResponseResult<T>();
         result.setData(data);
         result.setSuccess(true);
-        result.setMessage(GlobalErrorInfoEnum.SUCCESS.getMessage());
         return result;
     }
 
@@ -36,7 +35,7 @@ public class RestResultGenerator {
     public static <T> ResponseResult<T> genResult(ErrorInfoInterface errorInfo) {
         ResponseResult<T> result = new ResponseResult<T>();
         result.setSuccess(false);
-        result.setErrorcode(errorInfo.getCode());
+        result.setErrorCode(errorInfo.getCode());
         result.setMessage(errorInfo.getMessage());
         return result;
     }

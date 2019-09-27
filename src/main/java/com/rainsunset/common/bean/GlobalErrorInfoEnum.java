@@ -20,15 +20,13 @@ public enum GlobalErrorInfoEnum implements ErrorInfoInterface {
      * 415，格式错
      * 500，内部错误
      */
-//region
-    // 全局系统异常 占用范围-999 -- 1000
+
     SUCCESS("0", "success"),
+
     /**
      * System error global error info enum.
      */
     SYSTEM_ERROR("-1", "系统异常"),
-
-    //endregion
 
     ;
 
