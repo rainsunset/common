@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
-import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -15,9 +14,9 @@ import java.security.NoSuchAlgorithmException;
  * @company rainsunset
  * @date: 2019 -10-10
  */
-public class MessageDigestUtil {
+public class DigestAlgorithmUtil {
 
-    private static Logger logger = LoggerFactory.getLogger(MessageDigestUtil.class);
+    private static Logger logger = LoggerFactory.getLogger(DigestAlgorithmUtil.class);
 
     /** algorithm - MD5 */
     private static String MD5 = "MD5";
