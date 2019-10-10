@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class DigestAlgorithmUtil {
 
-    private static Logger logger = LoggerFactory.getLogger(DigestAlgorithmUtil.class);
+    private static Logger log = LoggerFactory.getLogger(DigestAlgorithmUtil.class);
 
     /** algorithm - MD5 */
     private static String MD5 = "MD5";
@@ -114,19 +114,18 @@ public class DigestAlgorithmUtil {
         if (null == str) {
             return null;
         }
-        String encodestr = "";
         try {
             MessageDigest md = MessageDigest.getInstance(algorithm);
             md.update(str.getBytes("UTF-8"));
-            encodestr = byte2Hex(md.digest());
+            return byte2Hex(md.digest());
         } catch (NoSuchAlgorithmException e) {
-            logger.error("不支持的加密算法！");
+            log.error("不支持的加密算法！");
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
-            logger.error("不支持的编码！");
+            log.error("不支持的编码！");
             e.printStackTrace();
         }
-        return encodestr;
+        return null;
     }
 
     /**

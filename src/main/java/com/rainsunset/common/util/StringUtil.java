@@ -2,7 +2,9 @@ package com.rainsunset.common.util;
 
 import org.springframework.util.StringUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 
 /**
  * @description: 字符串到基础对象的严格转化
@@ -132,6 +134,21 @@ public class StringUtil {
             return res;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    /**
+     * Encode url with utf 8 string.
+     *
+     * @param url the url
+     * @return the string
+     * @author : ligangwei / 2019-06-21
+     */
+    public static String encodeUrlWithUtf8(String url) {
+        try {
+            return URLEncoder.encode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return "";
         }
     }
 
