@@ -4,6 +4,8 @@ import okhttp3.*;
 import okhttp3.internal.http.HttpHeaders;
 import okio.Buffer;
 import okio.BufferedSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @version : 1.0
  */
 public final class LoggingInterceptor implements Interceptor {
+    private final static Logger log = LoggerFactory.getLogger(LoggingInterceptor.class);
 
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
@@ -65,21 +68,21 @@ public final class LoggingInterceptor implements Interceptor {
 
         Connection connection = chain.connection();
         Protocol protocol = connection != null ? connection.protocol() : Protocol.HTTP_1_1;
-        String requestStartMessage = "--> " + request.method() + ' ' + request.url() + ' ' + protocol;
+        String requestStartMessage = ">>>  " + request.method() + ' ' + request.url() + ' ' + protocol;
         if (!logHeaders && hasRequestBody) {
             requestStartMessage += " (" + requestBody.contentLength() + "-byte body)";
         }
-        System.out.println(requestStartMessage);
+        log.info(requestStartMessage);
 
         if (logHeaders) {
             if (hasRequestBody) {
                 // Request body headers are only present when installed as a network interceptor. Force
                 // them to be included (when available) so there values are known.
                 if (requestBody.contentType() != null) {
-                    System.out.println("Content-Type: " + requestBody.contentType());
+                    log.info("Content-Type: " + requestBody.contentType());
                 }
                 if (requestBody.contentLength() != -1) {
-                    System.out.println("Content-Length: " + requestBody.contentLength());
+                    log.info("Content-Length: " + requestBody.contentLength());
                 }
             }
 
@@ -88,14 +91,14 @@ public final class LoggingInterceptor implements Interceptor {
                 String name = headers.name(i);
                 // Skip headers from the request body as they are explicitly logged above.
                 if (!"Content-Type".equalsIgnoreCase(name) && !"Content-Length".equalsIgnoreCase(name)) {
-                    System.out.println(name + ": " + headers.value(i));
+                    log.info(name + ": " + headers.value(i));
                 }
             }
 
             if (!logBody || !hasRequestBody) {
-                System.out.println("--> END " + request.method());
+                log.info(">>>  END " + request.method());
             } else if (bodyEncoded(request.headers())) {
-                System.out.println("--> END " + request.method() + " (encoded body omitted)");
+                log.info(">>>  END " + request.method() + " (encoded body omitted)");
             } else {
                 Buffer buffer = new Buffer();
                 requestBody.writeTo(buffer);
@@ -107,11 +110,11 @@ public final class LoggingInterceptor implements Interceptor {
                 }
 
                 if (isPlaintext(buffer)) {
-                    System.out.println(buffer.readString(charset));
-                    System.out.println("--> END " + request.method()
+                    log.info(buffer.readString(charset));
+                    log.info(">>>  END " + request.method()
                             + " (" + requestBody.contentLength() + "-byte body)");
                 } else {
-                    System.out.println("--> END " + request.method() + " (binary "
+                    log.info(">>>  END " + request.method() + " (binary "
                             + requestBody.contentLength() + "-byte body omitted)");
                 }
             }
@@ -122,7 +125,7 @@ public final class LoggingInterceptor implements Interceptor {
         try {
             response = chain.proceed(request);
         } catch (Exception e) {
-            System.out.println("<-- HTTP FAILED: " + e);
+            log.info("<<< HTTP FAILED: " + e);
             throw e;
         }
         long tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs);
@@ -130,20 +133,20 @@ public final class LoggingInterceptor implements Interceptor {
         ResponseBody responseBody = response.body();
         long contentLength = responseBody.contentLength();
         String bodySize = contentLength != -1 ? contentLength + "-byte" : "unknown-length";
-        System.out.println("<-- " + response.code() + ' ' + response.message() + ' '
+        log.info("<<< " + response.code() + ' ' + response.message() + ' '
                 + response.request().url() + " (" + tookMs + "ms" + (!logHeaders ? ", "
                 + bodySize + " body" : "") + ')');
 
         if (logHeaders) {
             Headers headers = response.headers();
             for (int i = 0, count = headers.size(); i < count; i++) {
-                System.out.println(headers.name(i) + ": " + headers.value(i));
+                log.info(headers.name(i) + ": " + headers.value(i));
             }
 
             if (!logBody || !HttpHeaders.promisesBody(response)) {
-                System.out.println("<-- END HTTP");
+                log.info("<<< END HTTP");
             } else if (bodyEncoded(response.headers())) {
-                System.out.println("<-- END HTTP (encoded body omitted)");
+                log.info("<<< END HTTP (encoded body omitted)");
             } else {
                 BufferedSource source = responseBody.source();
                 source.request(Long.MAX_VALUE); // Buffer the entire body.
@@ -156,15 +159,15 @@ public final class LoggingInterceptor implements Interceptor {
                 }
 
                 if (!isPlaintext(buffer)) {
-                    System.out.println("<-- END HTTP (binary " + buffer.size() + "-byte body omitted)");
+                    log.info("<<< END HTTP (binary " + buffer.size() + "-byte body omitted)");
                     return response;
                 }
 
                 if (contentLength != 0) {
-                    System.out.println(buffer.clone().readString(charset));
+                    log.info(buffer.clone().readString(charset));
                 }
 
-                System.out.println("<-- END HTTP (" + buffer.size() + "-byte body)");
+                log.info("<<< END HTTP (" + buffer.size() + "-byte body)");
             }
         }
 
