@@ -97,11 +97,12 @@ public class HttpUtil {
     public static Response httpGetResponse(String url, Map<String, String> headers, Map<String, String> params) throws
             IOException {
         String logId = buildLogId();
+        Long currentTime = System.currentTimeMillis();
         log.info(">>> httpGetResponse Start[logId:{},url:{},headers:{},params:{}]", logId, url, headers, params);
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
         Response response = okHttpClient.newCall(builder.build()).execute();
-        log.info(">>> httpGetResponse End[logId:{},response:{}]", logId, response);
+        log.info(">>> httpGetResponse End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         return response;
     }
 
@@ -134,6 +135,7 @@ public class HttpUtil {
     public static String httpPostString(String url, String mediaType, String postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
         String logId = buildLogId();
+        Long currentTime = System.currentTimeMillis();
         log.info(">>> httpPostString Start[logId:{},url:{},mediaType:{},postBody:{},params:{},headers:{}]",
                 logId, url, mediaType, postBody, params, headers);
         MediaType mime = MediaType.parse(mediaType);
@@ -146,7 +148,7 @@ public class HttpUtil {
         RequestBody requestBody = RequestBody.create(postBody.getBytes(),mime);
         builder.post(requestBody);
         Response response = okHttpClient.newCall(builder.build()).execute();
-        log.info(">>> httpPostString End[logId:{},response:{}]", logId, response);
+        log.info(">>> httpPostString End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -182,6 +184,7 @@ public class HttpUtil {
     public static String httpPostStream(String url, String mediaType, byte[] postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
         String logId = buildLogId();
+        Long currentTime = System.currentTimeMillis();
         log.info(">>> httpPostStream Start[logId:{},url:{},mediaType:{},params:{},headers:{}]", logId, url, mediaType, params, headers);
         MediaType mime = MediaType.parse(mediaType);
         if (mime == null) {
@@ -193,7 +196,7 @@ public class HttpUtil {
         RequestBody requestBody = RequestBody.create(postBody,mime);
         builder.post(requestBody);
         Response response = okHttpClient.newCall(builder.build()).execute();
-        log.info(">>> httpPostStream End[logId:{},response:{}]", logId, response);
+        log.info(">>> httpPostStream End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -229,6 +232,7 @@ public class HttpUtil {
     public static String httpPostFile(String url, String mediaType, File file, Map<String, String> params, Map<String, String> headers) throws
             IOException {
         String logId = buildLogId();
+        Long currentTime = System.currentTimeMillis();
         log.info(">>> httpPostFile Start[logId:{},url:{},mediaType:{},params:{},headers:{}]", logId, url, mediaType, params, headers);
         MediaType mime = MediaType.parse(mediaType);
         if (mime == null) {
@@ -240,7 +244,7 @@ public class HttpUtil {
         RequestBody requestBody = RequestBody.create(file,mime);
         builder.post(requestBody);
         Response response = okHttpClient.newCall(builder.build()).execute();
-        log.info(">>> httpPostFile End[logId:{},response:{}]", logId, response);
+        log.info(">>> httpPostFile End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -274,6 +278,7 @@ public class HttpUtil {
     public static String httpPostForm(String url, Map<String, String> formData, Map<String, String> params, Map<String, String> headers) throws
             IOException {
         String logId = buildLogId();
+        Long currentTime = System.currentTimeMillis();
         log.info(">>> httpPostForm Start[logId:{},url:{},formData:{},params:{},headers:{}]", logId, url, formData, params, headers);
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
@@ -286,7 +291,7 @@ public class HttpUtil {
         FormBody requestBody = formBodyBuilder.build();
         builder.post(requestBody);
         Response response = okHttpClient.newCall(builder.build()).execute();
-        log.info(">>> httpPostForm End[logId:{},response:{}]", logId, response);
+        log.info(">>> httpPostForm End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -320,12 +325,13 @@ public class HttpUtil {
     public static String httpPostMultiPart(String url, MultipartBody postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
         String logId = buildLogId();
+        Long currentTime = System.currentTimeMillis();
         log.info(">>> httpPostMultiPart Start[logId:{},url:{},postBody:{},params:{},headers:{}]", logId, url, postBody, params, headers);
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
         builder.post(postBody);
         Response response = okHttpClient.newCall(builder.build()).execute();
-        log.info(">>> httpPostMultiPart End[logId:{},response:{}]", logId, response);
+        log.info(">>> httpPostMultiPart End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
             return response.body().string();
         }
