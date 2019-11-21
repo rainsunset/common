@@ -82,54 +82,8 @@ public class XmlUtil {
             return null;
         }
         Element element = doc.getRootElement();
-        String elementText;
-        try {
-            if (element != null) {
-                Object object = clazz.newInstance();
-                Field[] fields = clazz.getDeclaredFields();
-                boolean objIsNull = true;
-                for (Field field : fields) {
-                    if (isSimpleType(field.getType())) {
-                        elementText = element.elementText(field.getName());
-                        if (elementText == null) {
-                            continue;
-                        }
-                        objIsNull = false;
-                        setter(object, firstLetterToUpper(field.getName()), elementText, field.getType());
-                    } else if (List.class == field.getType()) {
-                        ParameterizedType pt = (ParameterizedType) field.getGenericType();
-                        Class<?> listElementClazz = (Class<?>) pt.getActualTypeArguments()[0];
-                        Element childElement = element.element(field.getName());
-                        if (childElement == null) {
-                            continue;
-                        }
-                        Iterator childIterator = childElement.elementIterator();
-                        Object obj = parseXMLChildToList(childIterator, listElementClazz);
-                        if (null != obj) {
-                            setter(object, firstLetterToUpper(field.getName()), obj, field.getType());
-                            objIsNull = false;
-                        }
-                    } else {
-                        Element childelement = element.element(field.getName());
-                        if (null == childelement) {
-                            continue;
-                        }
-                        Object obj = parseXMLChildToObject(childelement, field.getType());
-                        if (null != obj) {
-                            setter(object, firstLetterToUpper(field.getName()), obj, field.getType());
-                            objIsNull = false;
-                        }
-                    }
-                }
-                if (objIsNull) {
-                    return null;
-                }
-                return (T) object;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        Object object = parseXMLChildToObject(element, clazz);
+        return (T) object;
     }
 
     /**
@@ -170,67 +124,13 @@ public class XmlUtil {
      */
     public static <T> List<T> parseXMLToList(String xml, Class<T> clazz) {
         Document doc = parseXMLToDocument(xml);
+        if (null == doc) {
+            return null;
+        }
         try {
             Element root = doc.getRootElement();
             Iterator iterator = root.elementIterator();
             return (List<T>) parseXMLChildToList(iterator, clazz);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * 递归解析子节点，节点为Object
-     *
-     * @param element 子节点迭代器
-     * @param clazz   子节点类型
-     * @return Object object
-     * @author : ligangwei / 2019-05-29
-     */
-    private static Object parseXMLChildToObject(Element element, Class<?> clazz) {
-        String elementText;
-        try {
-            Object object = clazz.newInstance();
-            Field[] fields = clazz.getDeclaredFields();
-            boolean objIsNull = true;
-            for (Field field : fields) {
-                if (isSimpleType(field.getType())) {
-                    elementText = element.elementText(field.getName());
-                    if (elementText == null) {
-                        continue;
-                    }
-                    objIsNull = false;
-                    setter(object, firstLetterToUpper(field.getName()), elementText, field.getType());
-                } else if (List.class == field.getType()) {
-                    ParameterizedType pt = (ParameterizedType) field.getGenericType();
-                    Class<?> listElementClazz = (Class<?>) pt.getActualTypeArguments()[0];
-                    Element childElement = element.element(field.getName());
-                    if (childElement == null) {
-                        continue;
-                    }
-                    Iterator childIterator = childElement.elementIterator();
-                    Object obj = parseXMLChildToList(childIterator, listElementClazz);
-                    if (null != obj) {
-                        setter(object, firstLetterToUpper(field.getName()), obj, field.getType());
-                        objIsNull = false;
-                    }
-                } else {
-                    Element childElement = element.element(field.getName());
-                    if (childElement == null) {
-                        continue;
-                    }
-                    Object obj = parseXMLChildToObject(childElement, field.getType());
-                    if (null != obj) {
-                        setter(object, firstLetterToUpper(field.getName()), obj, field.getType());
-                        objIsNull = false;
-                    }
-                }
-            }
-            if (objIsNull) {
-                return null;
-            }
-            return object;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -247,48 +147,12 @@ public class XmlUtil {
      */
     private static List<Object> parseXMLChildToList(Iterator<Element> iterator, Class<?> clazz) {
         List<Object> list = new ArrayList<>();
-        String elementText;
         try {
             boolean listIsEmp = true;
             while (iterator.hasNext()) {
-                Object object = clazz.newInstance();
                 Element element = iterator.next();
-                Field[] fields = clazz.getDeclaredFields();
-                boolean objIsNull = true;
-                for (Field field : fields) {
-                    if (isSimpleType(field.getType())) {
-                        elementText = element.elementText(field.getName());
-                        if (elementText == null) {
-                            continue;
-                        }
-                        objIsNull = false;
-                        setter(object, firstLetterToUpper(field.getName()), elementText, field.getType());
-                    } else if (List.class == field.getType()) {
-                        ParameterizedType pt = (ParameterizedType) field.getGenericType();
-                        Class<?> listChildClazz = (Class<?>) pt.getActualTypeArguments()[0];
-                        Element childElement = element.element(field.getName());
-                        if (childElement == null) {
-                            continue;
-                        }
-                        Iterator childIterator = childElement.elementIterator();
-                        Object obj = parseXMLChildToList(childIterator, listChildClazz);
-                        if (null != obj) {
-                            setter(object, firstLetterToUpper(field.getName()), obj, field.getType());
-                            objIsNull = false;
-                        }
-                    } else {
-                        Element childElement = element.element(field.getName());
-                        if (childElement == null) {
-                            continue;
-                        }
-                        Object obj = parseXMLChildToObject(childElement, field.getType());
-                        if (null != obj) {
-                            setter(object, firstLetterToUpper(field.getName()), obj, field.getType());
-                            objIsNull = false;
-                        }
-                    }
-                }
-                if (!objIsNull) {
+                Object object = parseXMLChildToObject(element, clazz);
+                if (null != object) {
                     list.add(object);
                     listIsEmp = false;
                 }
@@ -297,6 +161,65 @@ public class XmlUtil {
                 return null;
             }
             return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 递归解析子节点，节点为Object
+     * @param element 子节点迭代器
+     * @param clazz 子节点类型
+     * @return Object
+     */
+    private static Object parseXMLChildToObject(Element element, Class<?> clazz) {
+        if (null == element) {
+            return null;
+        }
+        try {
+            Object object = clazz.newInstance();
+            Field[] fields = clazz.getDeclaredFields();
+            boolean objIsNull = true;
+            for (Field field : fields) {
+                if (isSimpleType(field.getType())) {
+                    String elementText = element.elementText(field.getName());
+                    if (null == elementText) {
+                        continue;
+                    }
+                    objIsNull = false;
+                    setter(object, firstLetterToUpper(field.getName()), elementText, field.getType());
+                    continue;
+                }
+                if (List.class == field.getType()) {
+                    ParameterizedType pt = (ParameterizedType) field.getGenericType();
+                    Class<?> listElementClazz = (Class<?>) pt.getActualTypeArguments()[0];
+                    Element childElement = element.element(field.getName());
+                    if (null == childElement) {
+                        continue;
+                    }
+                    Iterator childIterator = childElement.elementIterator();
+                    Object obj = parseXMLChildToList(childIterator, listElementClazz);
+                    if (null == obj) {
+                        continue;
+                    }
+                    setter(object, firstLetterToUpper(field.getName()), obj, field.getType());
+                    objIsNull = false;
+                    continue;
+                }
+                Element childelement = element.element(field.getName());
+                if (null == childelement) {
+                    continue;
+                }
+                Object obj = parseXMLChildToObject(childelement, field.getType());
+                if (null == obj) {
+                    continue;
+                }
+                setter(object, firstLetterToUpper(field.getName()), obj, field.getType());
+                objIsNull = false;
+            }
+            object = objIsNull ? null : object;
+            return object;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -511,33 +434,49 @@ public class XmlUtil {
     private static void setter(Object obj, String att, Object value, Class<?> type) throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException, ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:sss");
-
         Method method = obj.getClass().getMethod("set" + att, type);
         if (type == String.class) {
             method.invoke(obj, toString(value));
-        } else if (type == Integer.class || type == int.class) {
-            method.invoke(obj, toInteger(value));
-        } else if (type == double.class || type == Double.class) {
-            method.invoke(obj, toDouble(value));
-        } else if (type == char.class || type == Character.class) {
-            method.invoke(obj, toCharacter(value));
-        } else if (type == long.class || type == Long.class) {
-            method.invoke(obj, toLong(value));
-        } else if (type == float.class || type == Float.class) {
-            method.invoke(obj, toFloat(value));
-        } else if (type == byte.class || type == Byte.class) {
-            method.invoke(obj, toByte(value));
-        } else if (type == boolean.class || type == Boolean.class) {
-            method.invoke(obj, toBoolean(value));
-        } else if (type == short.class || type == Short.class) {
-            method.invoke(obj, toShort(value));
-        } else if (type == Date.class) {
-            method.invoke(obj, df.parse(String.valueOf(value)));
-        } else {
-            method.invoke(obj, value);
+            return;
         }
-
-    }
+        if (type == Integer.class || type == int.class) {
+            method.invoke(obj, toInteger(value));
+            return;
+        }
+        if (type == double.class || type == Double.class) {
+            method.invoke(obj, toDouble(value));
+            return;
+        }
+        if(type == char.class || type == Character.class) {
+            method.invoke(obj,toCharacter(value));
+            return;
+        }
+        if(type == long.class || type == Long.class) {
+            method.invoke(obj,toLong(value));
+            return;
+        }
+        if(type == float.class || type == Float.class) {
+            method.invoke(obj,toFloat(value));
+            return;
+        }
+        if(type == byte.class || type == Byte.class) {
+            method.invoke(obj,toByte(value));
+            return;
+        }
+        if(type == boolean.class || type == Boolean.class) {
+            method.invoke(obj,toBoolean(value));
+            return;
+        }
+        if(type == short.class || type == Short.class) {
+            method.invoke(obj,toShort(value));
+            return;
+        }
+        if(type == Date.class){
+            method.invoke(obj, df.parse(String.valueOf(value)));
+            return;
+        }
+        method.invoke(obj,value);
+        }
 
     /**
      * 首字母大写

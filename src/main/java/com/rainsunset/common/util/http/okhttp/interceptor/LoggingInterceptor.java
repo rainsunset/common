@@ -11,48 +11,31 @@ import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description: TODO
+ * @description: OkHttp 拦截器
  * @author: ligangwei
  * @company rainsunset
  * @date: 2019.09.24
  * @version : 1.0
  */
 public final class LoggingInterceptor implements Interceptor {
-    /**
-     * UTF8
-     */
+
     private static final Charset UTF8 = Charset.forName("UTF-8");
-    /**
-     * Level
-     */
+
     private volatile Level level = Level.NONE;
 
     /**
-     * Returns true if the body in question probably contains human readable text. Uses a small sample
-     * of code points to detect unicode control characters commonly used in binary file signatures.
+     * Change the level at which this interceptor logs.
      *
-     * @param buffer the buffer
-     * @return the boolean
+     * @param level the level
+     * @return the level
      * @author : ligangwei / 2019-09-24
      */
-    static boolean isPlaintext(Buffer buffer) {
-        try {
-            Buffer prefix = new Buffer();
-            long byteCount = buffer.size() < 64 ? buffer.size() : 64;
-            buffer.copyTo(prefix, 0, byteCount);
-            for (int i = 0; i < 16; i++) {
-                if (prefix.exhausted()) {
-                    break;
-                }
-                int codePoint = prefix.readUtf8CodePoint();
-                if (Character.isISOControl(codePoint) && !Character.isWhitespace(codePoint)) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (EOFException e) {
-            return false; // Truncated UTF-8 sequence.
+    public LoggingInterceptor setLevel(Level level) {
+        if (level == null) {
+            throw new NullPointerException("level == null. Use Level.NONE instead.");
         }
+        this.level = level;
+        return this;
     }
 
     /**
@@ -63,22 +46,6 @@ public final class LoggingInterceptor implements Interceptor {
      */
     public Level getLevel() {
         return level;
-    }
-
-    /**
-     * Change the level at which this interceptor logs.
-     *
-     * @param level the level
-     * @return the level
-     * @author : ligangwei / 2019-09-24
-     */
-    @SuppressWarnings("AliControlFlowStatementWithoutBraces")
-    public LoggingInterceptor setLevel(Level level) {
-        if (level == null) {
-            throw new NullPointerException("level == null. Use Level.NONE instead.");
-        }
-        this.level = level;
-        return this;
     }
 
     @Override
@@ -139,7 +106,6 @@ public final class LoggingInterceptor implements Interceptor {
                     charset = contentType.charset(UTF8);
                 }
 
-                System.out.println("");
                 if (isPlaintext(buffer)) {
                     System.out.println(buffer.readString(charset));
                     System.out.println("--> END " + request.method()
@@ -190,13 +156,11 @@ public final class LoggingInterceptor implements Interceptor {
                 }
 
                 if (!isPlaintext(buffer)) {
-                    System.out.println("");
                     System.out.println("<-- END HTTP (binary " + buffer.size() + "-byte body omitted)");
                     return response;
                 }
 
                 if (contentLength != 0) {
-                    System.out.println("");
                     System.out.println(buffer.clone().readString(charset));
                 }
 
@@ -205,6 +169,34 @@ public final class LoggingInterceptor implements Interceptor {
         }
 
         return response;
+    }
+
+    /**
+     * Returns true if the body in question probably contains human readable text. Uses a small sample
+     * of code points to detect unicode control characters commonly used in binary file signatures.
+     *
+     * @param buffer the buffer
+     * @return the boolean
+     * @author : ligangwei / 2019-09-24
+     */
+    static boolean isPlaintext(Buffer buffer) {
+        try {
+            Buffer prefix = new Buffer();
+            long byteCount = buffer.size() < 64 ? buffer.size() : 64;
+            buffer.copyTo(prefix, 0, byteCount);
+            for (int i = 0; i < 16; i++) {
+                if (prefix.exhausted()) {
+                    break;
+                }
+                int codePoint = prefix.readUtf8CodePoint();
+                if (Character.isISOControl(codePoint) && !Character.isWhitespace(codePoint)) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (EOFException e) {
+            return false; // Truncated UTF-8 sequence.
+        }
     }
 
     /**

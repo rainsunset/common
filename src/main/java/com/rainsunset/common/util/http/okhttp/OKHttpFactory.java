@@ -4,12 +4,10 @@ import com.rainsunset.common.util.http.okhttp.interceptor.LoggingInterceptor;
 import okhttp3.OkHttpClient;
 
 import javax.net.ssl.*;
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigInteger;
-import java.security.*;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
 
@@ -57,18 +55,17 @@ public enum OKHttpFactory {
             final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
             final HostnameVerifier hostnameVerifier = new HostnameVerifier() {
                 @Override
-                public boolean verify(String s, SSLSession sslSession) {
+                public boolean verify(String hostname, SSLSession sslSession) {
                     return true;
                 }
             };
-
             mOkHttpClient = new OkHttpClient.Builder()
                     .addNetworkInterceptor(loggingInterceptor)
                     //失败重连
                     .retryOnConnectionFailure(true)
-                    .connectTimeout(TIMEOUT_CONNECTION, TimeUnit.SECONDS)
-                    .readTimeout(TIMEOUT_READ, TimeUnit.SECONDS)
-                    .writeTimeout(TIMEOUT_WRITE, TimeUnit.SECONDS)
+                    .connectTimeout(TIMEOUT_CONNECTION, TimeUnit.MILLISECONDS)
+                    .readTimeout(TIMEOUT_READ, TimeUnit.MILLISECONDS)
+                    .writeTimeout(TIMEOUT_WRITE, TimeUnit.MILLISECONDS)
                     .sslSocketFactory(sslSocketFactory,(X509TrustManager)trustAllCerts[0])
                     .hostnameVerifier(hostnameVerifier)
                     .build();
@@ -77,7 +74,6 @@ public enum OKHttpFactory {
             throw new RuntimeException("OKHttpClient initialization failed");
         }
     }
-
     public OkHttpClient getOkHttpClient() {
         return mOkHttpClient;
     }

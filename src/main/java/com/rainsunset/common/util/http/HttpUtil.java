@@ -18,10 +18,7 @@ import java.util.Map;
  * @version : 1.0
  */
 public class HttpUtil {
-    /**
-     * mLogger
-     */
-    private final static Logger mLogger = LoggerFactory.getLogger(HttpUtil.class);
+    private final static Logger log = LoggerFactory.getLogger(HttpUtil.class);
 
     //region 同步请求
 
@@ -99,10 +96,12 @@ public class HttpUtil {
      */
     public static Response httpGetResponse(String url, Map<String, String> headers, Map<String, String> params) throws
             IOException {
+        String logId = buildLogId();
+        log.info(">>> httpGetResponse Start[logId:{},url:{},headers:{},params:{}]", logId, url, headers, params);
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
-        //Header And Url
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
         Response response = okHttpClient.newCall(builder.build()).execute();
+        log.info(">>> httpGetResponse End[logId:{},response:{}]", logId, response);
         return response;
     }
 
@@ -134,19 +133,20 @@ public class HttpUtil {
      */
     public static String httpPostString(String url, String mediaType, String postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
+        String logId = buildLogId();
+        log.info(">>> httpPostString Start[logId:{},url:{},mediaType:{},postBody:{},params:{},headers:{}]",
+                logId, url, mediaType, postBody, params, headers);
         MediaType mime = MediaType.parse(mediaType);
         if (mime == null) {
-            mLogger.info("======>Media type parse failed");
+            log.error(">>> httpPostString Media type parse failed[mediaType:{}]", mediaType);
             return null;
         }
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
-        //Header And Url
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
-        //Post body
         RequestBody requestBody = RequestBody.create(postBody.getBytes(),mime);
         builder.post(requestBody);
-
         Response response = okHttpClient.newCall(builder.build()).execute();
+        log.info(">>> httpPostString End[logId:{},response:{}]", logId, response);
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -181,19 +181,19 @@ public class HttpUtil {
      */
     public static String httpPostStream(String url, String mediaType, byte[] postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
+        String logId = buildLogId();
+        log.info(">>> httpPostStream Start[logId:{},url:{},mediaType:{},params:{},headers:{}]", logId, url, mediaType, params, headers);
         MediaType mime = MediaType.parse(mediaType);
         if (mime == null) {
-            mLogger.info("======>Media type parse failed");
+            log.info(">>> httpPostStream Media type parse failed[mediaType:{}]", mediaType);
             return null;
         }
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
-        //Header And Url
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
-        //Post body
         RequestBody requestBody = RequestBody.create(postBody,mime);
         builder.post(requestBody);
-
         Response response = okHttpClient.newCall(builder.build()).execute();
+        log.info(">>> httpPostStream End[logId:{},response:{}]", logId, response);
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -228,19 +228,19 @@ public class HttpUtil {
      */
     public static String httpPostFile(String url, String mediaType, File file, Map<String, String> params, Map<String, String> headers) throws
             IOException {
+        String logId = buildLogId();
+        log.info(">>> httpPostFile Start[logId:{},url:{},mediaType:{},params:{},headers:{}]", logId, url, mediaType, params, headers);
         MediaType mime = MediaType.parse(mediaType);
         if (mime == null) {
-            mLogger.info("======>Media type parse failed");
+            log.info(">>> Media type parse failed[mediaType:{}]", mediaType);
             return null;
         }
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
-        //Header And Url
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
-        //Post body
         RequestBody requestBody = RequestBody.create(file,mime);
         builder.post(requestBody);
-
         Response response = okHttpClient.newCall(builder.build()).execute();
+        log.info(">>> httpPostFile End[logId:{},response:{}]", logId, response);
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -273,10 +273,10 @@ public class HttpUtil {
      */
     public static String httpPostForm(String url, Map<String, String> formData, Map<String, String> params, Map<String, String> headers) throws
             IOException {
+        String logId = buildLogId();
+        log.info(">>> httpPostForm Start[logId:{},url:{},formData:{},params:{},headers:{}]", logId, url, formData, params, headers);
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
-        //Header And Url
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
-        //Post body
         FormBody.Builder formBodyBuilder = new FormBody.Builder();
         if (formData != null && formData.size() > 0) {
             for (Map.Entry<String, String> entry : formData.entrySet()) {
@@ -285,8 +285,8 @@ public class HttpUtil {
         }
         FormBody requestBody = formBodyBuilder.build();
         builder.post(requestBody);
-
         Response response = okHttpClient.newCall(builder.build()).execute();
+        log.info(">>> httpPostForm End[logId:{},response:{}]", logId, response);
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -319,13 +319,13 @@ public class HttpUtil {
      */
     public static String httpPostMultiPart(String url, MultipartBody postBody, Map<String, String> params, Map<String, String> headers) throws
             IOException {
+        String logId = buildLogId();
+        log.info(">>> httpPostMultiPart Start[logId:{},url:{},postBody:{},params:{},headers:{}]", logId, url, postBody, params, headers);
         OkHttpClient okHttpClient = OKHttpFactory.INSTANCE.getOkHttpClient();
-        //Header And Url
         Request.Builder builder = buildHanderAndUrl(url, params, headers);
-        //Post body
         builder.post(postBody);
-
         Response response = okHttpClient.newCall(builder.build()).execute();
+        log.info(">>> httpPostMultiPart End[logId:{},response:{}]", logId, response);
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -358,7 +358,6 @@ public class HttpUtil {
             }
             urlBuilder.substring(0, urlBuilder.length() - 1);
         }
-        mLogger.info(String.format("======>request url:%s", urlBuilder.toString()));
         builder.url(urlBuilder.toString());
         return builder;
     }
@@ -367,4 +366,15 @@ public class HttpUtil {
     //region 异步请求
     //TODO:异步请求封装
     //endregion
+	
+	/**
+     * 构建日志id
+     *
+     * @return the string
+     * @author : ligangwei / 2019-11-21 16:25:03
+     */
+    private static String buildLogId() {
+        String logId = Thread.currentThread().getId() + "_" + System.currentTimeMillis();
+        return logId;
+    }
 }
