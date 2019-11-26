@@ -215,4 +215,38 @@ public final class DateUtils {
         return DateUtil.format(cal.getTime(), DateUtil.FORMAT_SHORT);
     }
 
+    /**
+     * 获取一天开始的时间
+     * @param date
+     * @return
+     */
+    private static Date getDayStart(Date date) {
+        if (null == date) {
+            return null;
+        }
+        Calendar dateStart = Calendar.getInstance();
+        dateStart.setTime(date);
+        dateStart.set(Calendar.HOUR_OF_DAY, 0);
+        dateStart.set(Calendar.MINUTE, 0);
+        dateStart.set(Calendar.SECOND, 0);
+        return dateStart.getTime();
+    }
+
+    /**
+     * 获取一天结束的时间
+     * @param date
+     * @return
+     */
+    private static Date getDayEnd(Date date) {
+        if (null == date) {
+            return null;
+        }
+        Calendar dateEnd = Calendar.getInstance();
+        dateEnd.setTime(date);
+        dateEnd.set(Calendar.HOUR_OF_DAY, 23);
+        dateEnd.set(Calendar.MINUTE, 59);
+        dateEnd.set(Calendar.SECOND, 59);
+        return dateEnd.getTime();
+    }
+
 }
