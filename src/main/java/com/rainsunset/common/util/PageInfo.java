@@ -38,6 +38,9 @@ public class PageInfo<T> implements Serializable {
      */
     private Integer totalSize = 0;
 
+    /** 时间锚点 格式 yyyy-MM-dd HH:mm:ss */
+    private String markTime;
+
     /**
      * 数据
      */
@@ -52,15 +55,13 @@ public class PageInfo<T> implements Serializable {
      * @param totalSize   the total size
      * @param rows        the rows
      */
-    public PageInfo(int totalPage, int currentPage, Integer pageSize, Integer totalSize, List<T> rows) {
+    public PageInfo(int totalPage, int currentPage, Integer pageSize, Integer totalSize, String markTime, List<T> rows) {
         this.totalPage = totalPage;
         this.currentPage = currentPage;
         this.pageSize = pageSize;
         this.totalSize = totalSize;
-        if (null == rows) {
-            rows = new ArrayList<>();
-        }
-        this.rows = rows;
+        this.markTime = markTime;
+        this.rows = (null == rows) ? new ArrayList<T>() : rows;
     }
 
     /**
