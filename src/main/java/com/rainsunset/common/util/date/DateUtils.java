@@ -220,7 +220,7 @@ public final class DateUtils {
      * @param date
      * @return
      */
-    private static Date getDayStart(Date date) {
+    public static Date getDayStart(Date date) {
         if (null == date) {
             return null;
         }
@@ -237,7 +237,7 @@ public final class DateUtils {
      * @param date
      * @return
      */
-    private static Date getDayEnd(Date date) {
+    public static Date getDayEnd(Date date) {
         if (null == date) {
             return null;
         }
