@@ -229,6 +229,7 @@ public final class DateUtils {
         dateStart.set(Calendar.HOUR_OF_DAY, 0);
         dateStart.set(Calendar.MINUTE, 0);
         dateStart.set(Calendar.SECOND, 0);
+        dateStart.set(Calendar.MILLISECOND, 0);
         return dateStart.getTime();
     }
 
@@ -246,6 +247,7 @@ public final class DateUtils {
         dateEnd.set(Calendar.HOUR_OF_DAY, 23);
         dateEnd.set(Calendar.MINUTE, 59);
         dateEnd.set(Calendar.SECOND, 59);
+        dateEnd.set(Calendar.MILLISECOND, 999);
         return dateEnd.getTime();
     }
 
