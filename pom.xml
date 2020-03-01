@@ -141,7 +141,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <project.release.version>1.0.1</project.release.version>
+                <project.release.version>1.0.0</project.release.version>
                 <gpg.executable>gpg</gpg.executable>
                 <gpg.useagent>true</gpg.useagent>
                 <gpg.passphrase>myPassphrase</gpg.passphrase>
@@ -211,7 +211,7 @@
             </build>
         </profile>
         <profile>
-            <id>common-snapshots</id>
+            <id>common-snapshot</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
