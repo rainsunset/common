@@ -44,7 +44,7 @@ public class PageHelper {
         } else {
             this.totalSize = totalSize;
             this.currentPage = (null == currentPage || 1 > currentPage) ? 1 : currentPage;
-            this.totalPage = (this.totalSize / this.pageSize) + ((this.totalSize % this.pageSize) > 0 ? 1 : 0);
+            this.totalPage = (int)Math.ceil((double)this.totalSize / (double)this.pageSize);
             this.offset = this.pageSize * (this.currentPage - 1);
         }
     }

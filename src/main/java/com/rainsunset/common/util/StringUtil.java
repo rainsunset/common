@@ -5,6 +5,7 @@ import org.springframework.util.StringUtils;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
+import java.util.regex.Pattern;
 
 /**
  * @description: 字符串到基础对象的严格转化
@@ -14,7 +15,8 @@ import java.net.URLEncoder;
  * @version : 1.0
  */
 public class StringUtil {
-
+    /** {}关键字替换规则 */
+    public static final Pattern PATTERN_BRACE_AROUND_KEYWORD = Pattern.compile("(\\{\\S+?\\})");
     /**
      * 字符转整数
      *
@@ -150,6 +152,44 @@ public class StringUtil {
         } catch (UnsupportedEncodingException e) {
             return "";
         }
+    }
+
+    /**
+     * 非饱和替换
+     *
+     * @param contentArray the content array
+     * @param localTmp     the local tmp
+     * @return the string
+     * @author : ligangwei / 2019-12-3 22:15:22
+     */
+    public static String repaceBracesAroundKeyword(String[] contentArray, String localTmp,String defParam) {
+        if (null == contentArray || 1 > contentArray.length) {
+            return localTmp;
+        }
+        String[] split = PATTERN_BRACE_AROUND_KEYWORD.split(localTmp);
+        int length = split.length;
+        // 可能是个纯模板__message__样式
+        if (0 == length) {
+            return contentArray[0];
+        }
+        // 检测模板是否是以关键词结尾
+        boolean tmpEndWithKey = (!localTmp.endsWith(split[length - 1]));
+        // 包含关键词数量必须与传参一致
+        int needKeyLength = tmpEndWithKey ? length : (length - 1);
+        // 顺序替换
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < needKeyLength; i++) {
+            sb.append(split[i]);
+            if (i < contentArray.length) {
+                sb.append(contentArray[i]);
+            } else {
+                sb.append(defParam);
+            }
+        }
+        if (!tmpEndWithKey) {
+            sb.append(split[needKeyLength]);
+        }
+        return sb.toString();
     }
 
 }

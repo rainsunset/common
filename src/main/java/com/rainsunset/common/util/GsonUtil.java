@@ -117,4 +117,22 @@ public class GsonUtil {
             return false;
         }
     }
+
+    /**
+     * jsonElement安全转化为String
+     *
+     * @param jsonElement the json element
+     * @return the string
+     * @author : ligangwei / 2019-11-29 22:07:06
+     */
+    public static String getAsString(JsonElement jsonElement) {
+        if ((null == jsonElement) || (jsonElement.isJsonNull())) {
+            return "";
+        }
+        try {
+            return jsonElement.getAsString();
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }
