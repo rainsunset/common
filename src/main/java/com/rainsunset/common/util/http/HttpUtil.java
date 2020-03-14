@@ -48,7 +48,9 @@ public class HttpUtil {
             IOException {
         Response response = httpGetResponse(url, headers, params);
         if (response.isSuccessful()) {
-            return response.body().string();
+            String responseBody = response.body().string();
+            log.info(">>> httpGetString Sucessed[responseBody:{}]", responseBody);
+            return responseBody;
         }
         return null;
     }
@@ -79,7 +81,9 @@ public class HttpUtil {
             IOException {
         Response response = httpGetResponse(url, headers, params);
         if (response.isSuccessful()) {
-            return response.body().byteStream();
+            InputStream responseBody = response.body().byteStream();
+            log.info(">>> httpGetString Sucessed");
+            return responseBody;
         }
         return null;
     }
@@ -150,7 +154,9 @@ public class HttpUtil {
         Response response = okHttpClient.newCall(builder.build()).execute();
         log.info(">>> httpPostString End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
-            return response.body().string();
+            String responseBody = response.body().string();
+            log.info(">>> httpPostString Sucessed[logId:{},responseBody:{}]", logId, responseBody);
+            return responseBody;
         }
         return null;
     }
@@ -198,7 +204,9 @@ public class HttpUtil {
         Response response = okHttpClient.newCall(builder.build()).execute();
         log.info(">>> httpPostStream End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
-            return response.body().string();
+            String responseBody = response.body().string();
+            log.info(">>> httpPostStream Sucessed[logId:{},responseBody:{}]", logId, responseBody);
+            return responseBody;
         }
         return null;
     }
@@ -246,7 +254,9 @@ public class HttpUtil {
         Response response = okHttpClient.newCall(builder.build()).execute();
         log.info(">>> httpPostFile End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
-            return response.body().string();
+            String responseBody = response.body().string();
+            log.info(">>> httpPostFile Sucessed[logId:{},responseBody:{}]", logId, responseBody);
+            return responseBody;
         }
         return null;
     }
@@ -293,7 +303,9 @@ public class HttpUtil {
         Response response = okHttpClient.newCall(builder.build()).execute();
         log.info(">>> httpPostForm End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
-            return response.body().string();
+            String responseBody = response.body().string();
+            log.info(">>> httpPostForm Sucessed[logId:{},responseBody:{}]", logId, responseBody);
+            return responseBody;
         }
         return null;
     }
@@ -333,7 +345,9 @@ public class HttpUtil {
         Response response = okHttpClient.newCall(builder.build()).execute();
         log.info(">>> httpPostMultiPart End[logId:{},response:{},costTime:{}ms]", logId, response, System.currentTimeMillis() - currentTime);
         if (response.isSuccessful()) {
-            return response.body().string();
+            String responseBody = response.body().string();
+            log.info(">>> httpPostMultiPart Sucessed[logId:{},responseBody:{}]", logId, responseBody);
+            return responseBody;
         }
         return null;
     }
