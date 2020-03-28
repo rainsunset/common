@@ -7,7 +7,7 @@ package com.rainsunset.common.bean;
  * @date: 2019.04.04
  * @version : 1.0
  */
-public class RestResultGenerator {
+public class ResponseGenerator {
 
     /**
      * Gen result response result.
@@ -41,7 +41,7 @@ public class RestResultGenerator {
      * @return the response result
      * @author : ligangwei / 2019-9-27 8:43:57
      */
-    public static <T> ResponseResult<T> genResult(GlobalErrorInfoException errorInfoException) {
+    public static <T> ResponseResult<T> genResult(GlobalException errorInfoException) {
         return new ResponseResult<T>(false, null, errorInfoException.getMessage(), errorInfoException.getCode());
     }
 

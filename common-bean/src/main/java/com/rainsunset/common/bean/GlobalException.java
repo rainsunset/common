@@ -7,7 +7,7 @@ package com.rainsunset.common.bean;
  * @date: 2019.04.04
  * @version : 1.0
  */
-public class GlobalErrorInfoException extends RuntimeException {
+public class GlobalException extends RuntimeException {
 
     /**
      * Error info
@@ -19,7 +19,7 @@ public class GlobalErrorInfoException extends RuntimeException {
      *
      * @param errorInfo the error info
      */
-    public GlobalErrorInfoException(ErrorInfoInterface errorInfo) {
+    public GlobalException(ErrorInfoInterface errorInfo) {
         super(errorInfo.getMessage());
         this.code = errorInfo.getCode();
     }
@@ -30,7 +30,7 @@ public class GlobalErrorInfoException extends RuntimeException {
      * @param errorInfo the error info
      * @param message   the message
      */
-    public GlobalErrorInfoException(ErrorInfoInterface errorInfo,String message) {
+    public GlobalException(ErrorInfoInterface errorInfo, String message) {
         super(message);
         this.code = errorInfo.getCode();
     }

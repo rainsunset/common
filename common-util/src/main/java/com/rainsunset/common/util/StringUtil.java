@@ -5,6 +5,7 @@ import org.springframework.util.StringUtils;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
@@ -17,6 +18,8 @@ import java.util.regex.Pattern;
 public class StringUtil {
     /** {}关键字替换规则 */
     public static final Pattern PATTERN_BRACE_AROUND_KEYWORD = Pattern.compile("(\\{\\S+?\\})");
+    /** __code__ 关键字替换规则 */
+    public static final Pattern PATTERN_UNDERLINE_AROUND_KEYWORD = Pattern.compile("(__\\S+?__)");
     /**
      * 字符转整数
      *
@@ -155,6 +158,25 @@ public class StringUtil {
     }
 
     /**
+     * unicode 转汉字
+     *
+     * @param unicode the unicode
+     * @return the string
+     * @author : ligangwei / 2020年1月15日 下午8:33:29
+     */
+    public static String unicode2String(String unicode) {
+        StringBuffer string = new StringBuffer();
+        String[] hex = unicode.split("\\\\u");
+        for (int i = 1; i < hex.length; i++) {
+            // 转换出每一个代码点
+            int data = Integer.parseInt(hex[i], 16);
+            // 追加成string
+            string.append((char) data);
+        }
+        return string.toString();
+    }
+
+    /**
      * 非饱和替换
      *
      * @param contentArray the content array
@@ -192,4 +214,19 @@ public class StringUtil {
         return sb.toString();
     }
 
+    /**
+     * 获取去-的UUID
+     *
+     * @return the string
+     * @author : ligangwei / 2019-05-29
+     */
+    public static String getUUID() {
+        UUID uuid = UUID.randomUUID();
+        String str = uuid.toString();
+        // 去掉"-"符号
+        String temp = str.substring(0, 8) + str.substring(9, 13)
+                + str.substring(14, 18) + str.substring(19, 23)
+                + str.substring(24);
+        return temp;
+    }
 }

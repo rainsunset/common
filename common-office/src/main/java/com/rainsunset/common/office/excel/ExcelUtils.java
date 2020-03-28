@@ -1,4 +1,4 @@
-package com.rainsunset.common.util.excel;
+package com.rainsunset.common.office.excel;
 
 import org.apache.poi.hssf.usermodel.DVConstraint;
 import org.apache.poi.hssf.usermodel.HSSFDataValidation;
@@ -852,7 +852,7 @@ public class ExcelUtils<E> {
                 case XSSFCell.CELL_TYPE_NUMERIC:
                     o = cell.getNumericCellValue();
                     if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                        o = org.apache.poi.ss.usermodel.DateUtil.getJavaDate(cell.getNumericCellValue());
+                        o = DateUtil.getJavaDate(cell.getNumericCellValue());
                     }
                     break;
                 case XSSFCell.CELL_TYPE_STRING:
