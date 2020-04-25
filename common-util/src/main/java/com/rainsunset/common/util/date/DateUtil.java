@@ -1,4 +1,4 @@
-package com.rainsunset.common.util.office.date;
+package com.rainsunset.common.util.date;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
